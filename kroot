@@ -1,0 +1,3 @@
+#! /usr/bin/bash
+
+echo $"-pthread -std=c++14 -m64 -I/home/keung/root_install/include -L/home/keung/root_install/lib -lCore -lImt -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lROOTVecOps -lTree -lTreePlayer -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMathMore -lThread -lMultiProc -lROOTDataFrame -Wl,-rpath,/home/keung/root_install/lib -pthread -lm -ldl -rdynamic"
