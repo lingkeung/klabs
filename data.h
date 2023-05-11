@@ -33,7 +33,6 @@ void savePlus(string fileName, Matrix D, vector<string> a)
 
 void loadPlus(string fileName, Matrix &D, vector<string> &a, int &m, int &n)
 {
-
 	try
 	{
 		std::ifstream is(fileName);
@@ -96,6 +95,35 @@ Data::Data(string s)
 		mtemp.setblk(1, 1, D(1, m, i, i));
 		ptemp = std::make_pair(a[i - 1], mtemp);
 		mp.insert(ptemp);
+	}
+}
+
+class DataR: public Data {
+public:
+	vector<string> r;
+public:
+	DataR(string s, string s1);
+};
+
+DataR::DataR(string s, string s1):Data(s) {
+	try
+	{
+		string fileName = s1;
+		std::ifstream is(fileName);
+		if (is.is_open() == 0)
+		{
+			throw 0;
+		}
+		string str;
+		for (int i = 1; i <= m; i++)
+		{
+			is >> str;
+			r.push_back(str);
+		}
+	}
+	catch (int e)
+	{
+		cout << "Cannot open " << fileName << ". Is this file name valid ?" << endl;
 	}
 }
 

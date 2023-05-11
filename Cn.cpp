@@ -5,9 +5,9 @@
 
 using namespace std;
 
-void C::print()
+void C::print(int precision)
 {
-	cout << fixed << setprecision(2);
+	cout << fixed << setprecision(precision);
 	if (b >= 0)
 		cout << "(" << a << " + " << b << "i)" << endl;
 	else

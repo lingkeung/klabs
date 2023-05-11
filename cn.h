@@ -10,7 +10,7 @@ public:
 public:
 	C() : a{0}, b{0} {}
 	C(double a, double b) : a{a}, b{b} {}
-	void print();
+	void print(int precision = 2);
 	friend C operator+(const C &w, const C &z);
 	friend C operator-(const C &w, const C &z);
 	friend C operator*(const C &w, const C &z);

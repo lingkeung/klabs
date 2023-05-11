@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Launch, runs ${fileDirname}/main",
+            "name": "(gdb) Launch, runs /home/keung/klabs/main",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/main",
+            "program": "/home/keung/klabs/main",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -30,10 +30,10 @@
         },
 
         {
-            "name": "(gdb) Launch, runs ${fileDirname}/_main",
+            "name": "(gdb) Launch, runs /home/keung/klabs/_main",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/_main",
+            "program": "/home/keung/klabs/_main",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
