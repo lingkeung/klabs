@@ -35,7 +35,7 @@ void StandaloneApplication(int argc, char **argv)
    q.getQ().print();
    q.getR().print();
    (q.getQ() * q.getR()).print();
-   cout << "\nnitro5 klabs-3" << endl;
+   cout << "\naspire" << endl;
 }
 
 int main(int argc, char **argv)
