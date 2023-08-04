@@ -28,5 +28,6 @@ int main()
 {
     X x;
     // X y = x;
+    //
     x = fun();
 }
