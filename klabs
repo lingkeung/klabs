@@ -1,2 +1,2 @@
 #! /usr/bin/bash
-echo $"Matrix.cpp Cn.cpp CMatrix.cpp Plu.cpp CPlu.cpp Qr.cpp QRC.cpp Eig.cpp Eigen.cpp Svd.cpp SVDC.cpp PLUC.cpp Poly.cpp Graph.cpp Rnt.cpp Stats.cpp Prob.cpp _main.cpp"
+echo $"Matrix.cpp Cn.cpp CMatrix.cpp Plu.cpp CPlu.cpp Qr.cpp QRC.cpp Eig.cpp Eigen.cpp Svd.cpp SVDC.cpp PLUC.cpp Poly.cpp Graph.cpp Rnt.cpp Stats.cpp Prob.cpp main.cpp"

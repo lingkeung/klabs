@@ -19,4 +19,6 @@ Matrix inverse(Matrix A);
 
 Matrix null(Matrix A);
 
+vector<int> icols(Matrix A); //find independent columns
+
 #endif
