@@ -233,42 +233,48 @@ Matrix null(Matrix A)
 
 vector<int> icols(Matrix A)
 {
-    vector<int> result;
-    int m = A.getM(), n = A.getN();
+	vector<int> result;
+	int m = A.getM(), n = A.getN();
 
-    int p = 0;
-    for (int k = 1; k <= m - 1; k++)
-    {
-        double max = 0;
-        for (int i = k; i <= m; i++)
-        {
-            if (abs(A(i, k)) > max)
-            {
-                max = abs(A(i, k));
-                p = i;
-            }
-        }
-        if (p != k)
-        {
-            rexch(p, k, A);
-        }
+	int p = 0;
+	for (int k = 1; k <= m - 1; k++)
+	{
+		double max = 0;
+		for (int i = k; i <= m; i++)
+		{
+			if (abs(A(i, k)) > max)
+			{
+				max = abs(A(i, k));
+				p = i;
+			}
+		}
+		if (p != k)
+		{
+			rexch(p, k, A);
+		}
 
-        if (abs(A(k, k)) >= 1e-6)
-        {
-            A.setblk(k + 1, k, (1 / A(k, k)) * A(k + 1, m, k, k)); //store multipliers (L)
-            A.setblk(k + 1, k + 1, A(k + 1, m, k + 1, n) - A(k + 1, m, k, k) * A(k, k, k + 1, n));
-            for (int i = k + 1; i <= m; i++)
-            {
-                A(i, k) = 0; //restore zeros (erase multipliers)
-            }
-            result.push_back(k);
-        }
-    }
-    if (abs(A(m, m)) >= 1e-6)
-    {
-        result.push_back(m); //check for last column pivot
-    }
-    //A.print(); // for debugging
-    return result;
+		if (abs(A(k, k)) >= 1e-6)
+		{
+			A.setblk(k + 1, k, (1 / A(k, k)) * A(k + 1, m, k, k)); // store multipliers (L)
+			A.setblk(k + 1, k + 1, A(k + 1, m, k + 1, n) - A(k + 1, m, k, k) * A(k, k, k + 1, n));
+			for (int i = k + 1; i <= m; i++)
+			{
+				A(i, k) = 0; // restore zeros (erase multipliers)
+			}
+			result.push_back(k);
+		}
+	}
+	if (n >= m)
+	{
+		for (int i = 0; i <= n-m; i++)
+		{
+			if (abs(A(m, m+i)) >= 1e-6)
+			{
+				result.push_back(m+i); // check for last column pivot
+			}
+		}
+	}
+
+	//A.print(); // for debugging
+	return result;
 }
-

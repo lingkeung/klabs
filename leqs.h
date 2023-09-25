@@ -74,7 +74,7 @@ void legs(Matrix A, Matrix b)
             cout << "Exact nullspace = " << endl;
             null.print();
         }
-        else if (!hsoln(A, b) && m > n)
+        else if (!hsoln(A, b))
         {
             cout << "Minimum norm least square solution = " << endl;
             xp.print();
