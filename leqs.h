@@ -1,6 +1,15 @@
-#include "leqs.h"
+#include "matrix.h"
+#include "plu.h"
+#include "qrc.h"
+#include "qr.h"
+#include "svd.h"
+#include "svdc.h"
 
-bool hsoln1(Matrix A, Matrix b)
+bool hsoln(Matrix A, Matrix b);
+bool usoln(Matrix A);
+void legs(Matrix A, Matrix b);
+
+bool hsoln(Matrix A, Matrix b)
 {
     bool result = false;
     int m = A.getM();
@@ -19,7 +28,7 @@ bool hsoln1(Matrix A, Matrix b)
     return result;
 }
 
-bool usoln1(Matrix A)
+bool usoln(Matrix A)
 {
     bool result = false;
     if (icols(A).size() == A.getN())
@@ -29,17 +38,9 @@ bool usoln1(Matrix A)
     return result;
 }
 
-int main()
+void legs(Matrix A, Matrix b)
 {
-    // Matrix A(4, 5, vector<double>{1, 0, 1, -1, -3, 1, 2, -1, 0, -1, 4, 6, -2, -4, 3, 2, -2, 4, -7, 4});
-    // Matrix b(4, 1, vector<double>{-2, 1, 7, 1});
-    // Matrix b(4,1);
-    // Matrix A(4,4,vector<double>{1,0,-3,-6,2,-5,1,1,0,-1,2,2,1,-7,4,6});
-    // Matrix b(4,1,vector<double>{9,8,-5,0});
-    Matrix A(3, 2, vector<double>{1, 1.2, 1, 1.4, 1, 1.8});
-    Matrix b(3, 1, vector<double>{1.6, 1.7, 2});
-    legs(A,b);
-    /*int n = A.getN();
+    int n = A.getN();
     int m = A.getM();
 
     if (usoln(A))
@@ -68,7 +69,8 @@ int main()
         {
             cout << "Exact particular solution = " << endl;
             xp.print();
-            cout << "and" << endl << endl;
+            cout << "and" << endl
+                 << endl;
             cout << "Exact nullspace = " << endl;
             null.print();
         }
@@ -77,7 +79,5 @@ int main()
             cout << "Minimum norm least square solution = " << endl;
             xp.print();
         }
-    }*/
-
-    return 0;
+    }
 }
