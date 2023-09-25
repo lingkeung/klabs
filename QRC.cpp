@@ -17,7 +17,8 @@ QR::QR(char q, Matrix A) /* use Givens rotation */
 
 Matrix QR::axb(Matrix b) /* A=QR & Ax=b -> QRx=b -> Rx=QTb -> x=bsub(R,QTb) */
 {
-	return qrAxb(A, b);
+	Matrix c1 = Q1.transpose() * b;
+	return bsub(R1, c1);
 }
 
 Matrix QR::basis() /* A=QR->A's columns are linear combinations of Q's columns */
