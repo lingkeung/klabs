@@ -264,17 +264,16 @@ vector<int> icols(Matrix A)
 			result.push_back(k);
 		}
 	}
-	if (n >= m)
+
+	for (int i = 0; i <= n - m; i++)
 	{
-		for (int i = 0; i <= n-m; i++)
+		if (abs(A(m, m + i)) >= 1e-6)
 		{
-			if (abs(A(m, m+i)) >= 1e-6)
-			{
-				result.push_back(m+i); // check for last column pivot
-			}
+			result.push_back(m + i); // check for last column pivot
+			break;
 		}
 	}
 
-	//A.print(); // for debugging
+	// A.print(); // for debugging
 	return result;
 }

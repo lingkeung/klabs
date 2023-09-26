@@ -55,7 +55,7 @@ void legs(Matrix A, Matrix b)
         }
         else if (!hsoln(A, b) && m > n)
         {
-            cout << "Unique least square solution = " << endl;
+            cout << "Unique least squares solution = " << endl;
             result.print();
         }
     }
@@ -76,7 +76,7 @@ void legs(Matrix A, Matrix b)
         }
         else if (!hsoln(A, b))
         {
-            cout << "Minimum norm least square solution = " << endl;
+            cout << "Minimum norm least squares solution = " << endl;
             xp.print();
         }
     }
