@@ -42,18 +42,21 @@ void legs(Matrix A, Matrix b)
 {
     int n = A.getN();
     int m = A.getM();
+    bool e, u;
+    u = usoln(A);    // ~ exact solution is unique if existent
+    e = hsoln(A, b); // ~ exact solution exists
 
-    if (usoln(A))
+    if (u)
     {
         QR q(A);
         Matrix result = q.axb(b);
 
-        if (hsoln(A, b) && m == n)
+        if (e && m == n)
         {
             cout << "Unique exact solution = " << endl;
             result.print();
         }
-        else if (!hsoln(A, b) && m > n)
+        else if (!e && m > n)
         {
             cout << "Unique least squares solution = " << endl;
             result.print();
@@ -65,7 +68,7 @@ void legs(Matrix A, Matrix b)
         Matrix xp = s.pinv() * b;
         Matrix null = s.null();
 
-        if (hsoln(A, b))
+        if (e)
         {
             cout << "Exact particular solution = " << endl;
             xp.print();
@@ -74,7 +77,7 @@ void legs(Matrix A, Matrix b)
             cout << "Exact nullspace = " << endl;
             null.print();
         }
-        else if (!hsoln(A, b))
+        else if (!e)
         {
             cout << "Minimum norm least squares solution = " << endl;
             xp.print();
