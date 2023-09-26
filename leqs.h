@@ -43,7 +43,7 @@ void legs(Matrix A, Matrix b)
     int n = A.getN();
     int m = A.getM();
     bool e, u;
-    u = usoln(A);    // ~ exact solution is unique if existent
+    u = usoln(A);    // ~ exact or least squares solution is unique if existent
     e = hsoln(A, b); // ~ exact solution exists
 
     if (u)
