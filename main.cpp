@@ -75,7 +75,7 @@ int main()
     }
     B.print();
     Matrix nspace(n, n - r);
-    for (int j = 1; j <= (n - r); j++)
+    /*for (int j = 1; j <= (n - r); j++)
     {
         for (int i = 1; i <= n; i++)
         {
@@ -88,9 +88,13 @@ int main()
                     i = n + 1;
                 }
             }
-        }
-    }
 
+        }
+    }*/
+    for (int j = 1; j <= (n - r); j++)
+    {
+        nspace(fvar[j - 1], j) = 1;
+    }
     nspace.print();
     for (int j = 1; j <= (n - r); j++)
     {
