@@ -47,8 +47,8 @@ int main()
             if (i == ivar[j])
             {
                 isIn = true;
+                break;
             }
-            continue;
         }
         if (!isIn)
         {
@@ -104,7 +104,7 @@ int main()
         }
     }
     nspace.print();
-    Matrix randv(2, 1, vector<double>{1, 2});
+    Matrix randv(2, 1, vector<double>{1, 2.95});
     (A * (nspace * randv)).print();
 
     return 0;
