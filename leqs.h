@@ -67,13 +67,13 @@ void legs(Matrix A, Matrix b)
     else
     {
         SVD s(A);
-        Matrix xp = s.pinv() * b;
+        Matrix xpart = s.pinv() * b;
         Matrix null = s.null();
 
         if (e)
         {
             cout << "Exact particular solution = " << endl;
-            xp.print();
+            xpart.print();
             cout << "and" << endl
                  << endl;
             cout << "Exact nullspace = " << endl;
