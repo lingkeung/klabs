@@ -87,13 +87,13 @@ void legs(Matrix A, Matrix b)
     }
 }
 
-Matrix nullspace(Matrix A)
+Matrix nullspace(Matrix A) // find nullspace of underdetermined system
 {
     vector<int> ivar = icols(A);             // basic variables
     vector<int> ieqn = icols(A.transpose()); // independent equations of homogenous system
     int r = ivar.size();                     // rank(A);
     Matrix R(r, r);                          // skeleton coefficient matrix of reduced system
-    R.print();                               // debug
+    // R.print();                            // debug
     for (int i = 1; i <= r; i++)
     {
         for (int j = 1; j <= r; j++)
@@ -101,7 +101,7 @@ Matrix nullspace(Matrix A)
             R(i, j) = A(ieqn[i - 1], ivar[j - 1]); // coefficients of basic variables of independent eqn's
         }
     }
-    R.print();        // debug
+    // R.print();        // debug
     vector<int> fvar; // free variables
     int n = A.getN();
     for (int i = 1; i <= n; i++) // identify free variables
@@ -118,7 +118,7 @@ Matrix nullspace(Matrix A)
         if (!isIn)
         {
             fvar.push_back(i);
-            cout << "i = " << i << endl; // debug
+            // cout << "i = " << i << endl; // debug
         }
     }
 
@@ -133,19 +133,19 @@ Matrix nullspace(Matrix A)
             B(i, j) = -1 * A(ieqn[i - 1], fvar[j - 1]); // negative of coefficient of "1" free variable
         }
     }
-    B.print(); // debug
-    QR q(R);   // solve reduced system using QR decomposition
+    // B.print(); // debug
+    QR q(R); // solve reduced system using QR decomposition
     for (int j = 1; j <= n - r; j++)
     {
         B.setblk(1, j, q.axb(B(1, r, j, j))); // overwrite B with solution of linear system
     }
-    B.print();                         // debug
+    // B.print();                         // debug
     Matrix nspace(n, n - r);           // construct nullspace
     for (int j = 1; j <= (n - r); j++) // choose one free variable as 1, rest 0's
     {
         nspace(fvar[j - 1], j) = 1;
     }
-    nspace.print();                    // debug
+    // nspace.print();                    // debug
     for (int j = 1; j <= (n - r); j++) // place elements of solution of reduced system in correct position
     {
         for (int k = 0; k < r; k++)
@@ -153,19 +153,19 @@ Matrix nullspace(Matrix A)
             nspace(ivar[k], j) = B(k + 1, j); // B contains solutions of reduced system
         }
     }
-    nspace.print(); // debug
+    // nspace.print(); // debug
 
     return nspace;
 }
 
-Matrix xp(Matrix A, Matrix b)
+Matrix xp(Matrix A, Matrix b) // find particular solution of underdetermined system
 
 {
     vector<int> ivar = icols(A);             // basic variables
     vector<int> ieqn = icols(A.transpose()); // independent equations
     int r = ivar.size();                     // rank(A);
     Matrix R(r, r);                          // skeleton coefficient matrix of reduced system
-    R.print();                               // debug
+    // R.print();                               // debug
     for (int i = 1; i <= r; i++)
     {
         for (int j = 1; j <= r; j++)
@@ -173,7 +173,7 @@ Matrix xp(Matrix A, Matrix b)
             R(i, j) = A(ieqn[i - 1], ivar[j - 1]); // coefficients of basic variables of independent eqn's
         }
     }
-    R.print();        // debug
+    // R.print();        // debug
     vector<int> fvar; // free variables
     int n = A.getN();
     for (int i = 1; i <= n; i++) // identify free variables
@@ -190,42 +190,19 @@ Matrix xp(Matrix A, Matrix b)
         if (!isIn)
         {
             fvar.push_back(i);
-            cout << "i = " << i << endl; // debug
+            // cout << "i = " << i << endl; // debug
         }
     }
 
-    /*Matrix B(r, n - r); // constants vectors for reduced system
-                        // formed by assigning 1 to one free variable, rest 0's.
-
-    for (int j = 1; j <= (n - r); j++)
-    {
-        for (int i = 1; i <= r; i++)
-
-        {
-            B(i, j) = -1 * A(ieqn[i - 1], fvar[j - 1]); // negative of coefficient of "1" free variable
-        }
-    }
-    B.print(); // debug*/
     Matrix br(r, 1);
     for (int i = 1; i <= r; i++)
     {
         br(i) = b(ieqn[i - 1]);
     }
-    br.print(); // debug
-    QR q(R);    // solve reduced system using QR decomposition
-    /*for (int j = 1; j <= n - r; j++)
-    {
-        B.setblk(1, j, q.axb(B(1, r, j, j))); // overwrite B with solution of linear system
-    }
-    B.print();                         // debug*/
+    // br.print(); // debug
+    QR q(R); // solve reduced system using QR decomposition
     br = q.axb(br);
-    br.print(); // debug
-    /*Matrix nspace(n, n - r);           // construct nullspace
-    for (int j = 1; j <= (n - r); j++) // choose one free variable as 1, rest 0's
-    {
-        nspace(fvar[j - 1], j) = 1;
-    }
-    nspace.print();                    // debug */
+    // br.print(); // debug
     Matrix xpart(n, 1);
 
     for (int k = 0; k < r; k++)
@@ -233,7 +210,7 @@ Matrix xp(Matrix A, Matrix b)
         xpart(ivar[k]) = br(k + 1); // br contains solutions of reduced system
     }
 
-    xpart.print(); // debug
+    // xpart.print(); // debug
 
     return xpart;
 }
