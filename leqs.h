@@ -82,7 +82,7 @@ void legs(Matrix A, Matrix b)
         else if (!e)
         {
             cout << "Minimum norm least squares solution = " << endl;
-            xp.print();
+            xpart.print();
         }
     }
 }
