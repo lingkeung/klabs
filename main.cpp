@@ -1,10 +1,5 @@
 #include "leqs.h"
 // #include <iostream>
-vector<int> ieqns(Matrix A)
-{
-    Matrix AT = A.transpose();
-    return icols(AT);
-}
 
 int main()
 {
@@ -23,92 +18,9 @@ int main()
     // Matrix b(4,1,vector<double>{1,2,3,4});
     // legs(A, b);
     A.print();
-    vector<int> ivar = icols(A); // basic variables
-    vector<int> ieqn = ieqns(A); // independent equations of homogenous system
-    int r = ivar.size();         // rank(A);
-    Matrix R(r, r);              // to form coefficient matrix of reduced linear system
-    R.print();                   // debug
-    for (int i = 1; i <= r; i++)
-    {
-        for (int j = 1; j <= r; j++)
-        {
-            R(i, j) = A(ieqn[i - 1], ivar[j - 1]);
-        }
-    }
-    R.print(); // debug
-
-    vector<int> fvar; // find free variables; to be improved using STL search algorithm
-    int n = A.getN();
-    for (int i = 1; i <= n; i++)
-    {
-        bool isIn = false;
-        for (int j = 0; j < r; j++)
-        {
-            if (i == ivar[j])
-            {
-                isIn = true;
-                break;
-            }
-        }
-        if (!isIn)
-        {
-            fvar.push_back(i);
-            cout << "i = " << i << endl;
-        }
-    }
-
-    Matrix B(r, n - r);
-
-    for (int j = 1; j <= (n - r); j++)
-    {
-        for (int i = 1; i <= r; i++)
-
-        {
-            B(i, j) = -1 * A(ieqn[i - 1], fvar[j - 1]);
-        }
-    }
-    B.print();
-    QR q(R);
-    for (int j = 1; j <= n - r; j++)
-    {
-        B.setblk(1, j, q.axb(B(1, r, j, j)));
-    }
-    B.print();
-    Matrix nspace(n, n - r);
-    /*for (int j = 1; j <= (n - r); j++)
-    {
-        for (int i = 1; i <= n; i++)
-        {
-            for (int k = 0; k < (n - r); k++)
-            {
-                if (i == fvar[k])
-                {
-                    nspace(i, j) = 1;
-                    fvar[k] = 0;
-                    i = n + 1;
-                }
-            }
-
-        }
-    }*/
-    for (int j = 1; j <= (n - r); j++)
-    {
-        nspace(fvar[j - 1], j) = 1;
-    }
-    nspace.print();
-    for (int j = 1; j <= (n - r); j++)
-    {
-        for (int k = 0; k < r; k++)
-        {
-            nspace(ivar[k], j) = B(k + 1, j);
-        }
-    }
-    nspace.print();
     nullspace(A).print();
-    Matrix randv(2, 1, vector<double>{1, 2.95});
-    (A * (nspace * randv)).print();
-    xp(A,b).print();
-    (A*xp(A,b)).print();
+    xp(A, b).print();
+    (A * xp(A, b)).print();
     b.print();
     return 0;
 }
