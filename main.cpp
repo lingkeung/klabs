@@ -104,8 +104,11 @@ int main()
         }
     }
     nspace.print();
+    nullspace(A).print();
     Matrix randv(2, 1, vector<double>{1, 2.95});
     (A * (nspace * randv)).print();
-
+    xp(A,b).print();
+    (A*xp(A,b)).print();
+    b.print();
     return 0;
 }
