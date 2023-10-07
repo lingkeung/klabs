@@ -1,6 +1,7 @@
 #include "eig.h"
 #include "qr.h"
 #include <vector>
+#include <iostream> // debug
 
 Matrix qrSchur(Matrix A, int iter)
 {
@@ -92,13 +93,35 @@ void francis(Matrix &H)
 	x = H(1, 1) * H(1, 1) + H(1, 2) * H(2, 1) - s * H(1, 1) + t;
 	y = H(2, 1) * (H(1, 1) + H(2, 2) - s);
 	z = H(2, 1) * H(3, 2);
+	if (abs(x) <= 1e-6)  // avoid x,y being too close or equal to zero which may result in 'cycling'
+	{
+		if (x >= 0)
+		{
+			x += 1e-3;  // value empirically adjusted 
+		}
+		else
+		{
+			x -= 1e-3;
+		}
+	}
+	if (abs(y) <= 1e-6)
+	{
+		if (y >= 0)
+		{
+			y += 1e-3;
+		}
+		else
+		{
+			y -= 1e-3;
+		}
+	}
 	for (int k = 0; k <= n - 3; k++)
 	{
 		Matrix xyz(3, 1, vector<double>{x, y, z});
 		Matrix v;
 		double beta;
 		house(xyz, v, beta);
-		int q = (k >= 1) ? k : 1;
+		int q = (k >= 1) ? k : 1;		   
 		H.setblk(k + 1, q, (identity(3) - beta * v * v.transpose()) * H(k + 1, k + 3, q, n));
 		int r = (k + 4 <= n) ? k + 4 : n;
 		H.setblk(1, k + 1, H(1, r, k + 1, k + 3) * (identity(3) - beta * v * v.transpose()));
@@ -207,11 +230,14 @@ void keig(Matrix A, double tol, cMatrix &eig, int iter)
 			int i1, i2, j1, j2, m;
 			lmn(H, i1, i2, j1, j2, m);
 			if (m == r)
+			{
 				break;
+			}
 			Matrix H22 = H(i1, i2, j1, j2);
 			francis(H22);
 			H.setblk(i1, j1, H22);
 		}
+
 		schur2eig(H, eig);
 	}
 }
