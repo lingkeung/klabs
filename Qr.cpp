@@ -16,7 +16,7 @@ void house(Matrix x, Matrix &v, double &beta)
 	double sigma = (x(2, n, 1, 1).transpose() * x(2, n, 1, 1))(1);
 	v = Matrix(n, 1);
 	v.setblk(2, 1, x(2, n, 1, 1));
-	if (sigma <= 1e-15) //change from 1e-10 // debug
+	if (sigma <= 1e-10) 
 		beta = 0;
 	else
 	{

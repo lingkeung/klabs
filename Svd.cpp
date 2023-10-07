@@ -16,6 +16,17 @@ void bidiag(Matrix &A, Matrix &UT, Matrix &V)
 	for (int k = 1; k <= n; k++)
 	{
 		Matrix x = A(k, m, k, k);
+		if (abs(x(1) <= 1e-6))  // avoid x(1) being too close or equal to 0
+		{
+			if (x(1) >= 0)
+			{
+				x(1) += 1e-3;
+			}
+			else
+			{
+				x(1) -= 1e-3;
+			}
+		}
 		Matrix v;
 		double beta;
 		house(x, v, beta);
@@ -316,7 +327,7 @@ void svd(Matrix &A, Matrix &U, Matrix &SIGMA, Matrix &VT)
 		sU.setblk(1, i + 1, U(1, U.getM(), idx[i] + 1, idx[i] + 1)); //... permutated in the same way
 		sV.setblk(1, i + 1, VT(1, VT.getM(), idx[i] + 1, idx[i] + 1));
 	}
-	U = sU; 
+	U = sU;
 	SIGMA = sSIGMA;
 	VT = sV.transpose();
 }
