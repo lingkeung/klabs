@@ -1,3 +1,5 @@
+#ifndef LEGS_H
+#define LEGS_H
 #include "matrix.h"
 #include "plu.h"
 #include "qrc.h"
@@ -214,3 +216,4 @@ Matrix xp(Matrix A, Matrix b) // find particular solution of underdetermined sys
 
     return xpart;
 }
+#endif
