@@ -361,3 +361,15 @@ Matrix load(const char *fileName)
 	}
 	return Matrix(m, n, vdbl);
 }
+
+Matrix normalize(Matrix A)
+{
+	int m = A.getM(), n = A.getN();
+	Matrix result(m, n);
+	for (int j = 1; j <= n; j++)
+	{
+		double size = vNorm2(A(1, m, j, j));
+		result.setblk(1, j, (1 / size) * A(1, m, j, j));
+	}
+	return result;
+}
