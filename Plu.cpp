@@ -267,13 +267,13 @@ vector<int> icols(Matrix A)
 
     for (int i = 0; i <= n - maxRank; i++)
     {
-        if (abs(A(maxRank, maxRank + i)) >= 1e-6)
+        if (abs(A(maxRank, maxRank + i)) >= 1e-5)
         {
             result.push_back(maxRank + i); // check for last column pivot
             break;
         }
     }
 
-    //A.print(); // for debugging
+    // A.print(); // for debugging
     return result;
 }

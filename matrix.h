@@ -50,6 +50,7 @@ Matrix linspace(int n, double lower, double upper);
 void save(const char *fileName, Matrix A);
 Matrix load(const char *fileName);
 Matrix normalize(Matrix A);
+Matrix combine(Matrix A, Matrix B);
 #endif
 /* Note 1: All parameters of this function are given default values, therefore it is the default constructor. Thus declaration such as >Matrix A;< is valid. */
 

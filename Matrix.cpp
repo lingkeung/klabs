@@ -373,3 +373,17 @@ Matrix normalize(Matrix A)
 	}
 	return result;
 }
+
+Matrix combine(Matrix A, Matrix B)
+{
+    int m1 = A.getM();
+    int n1 = A.getN();
+    int m2 = B.getM();
+    int n2 = B.getN();
+    Matrix C(m1, n1 + n2);
+    if (m1 != m2)
+        return C;
+    C.setblk(1, 1, A);
+    C.setblk(1, n1 + 1, B);
+    return C;
+}

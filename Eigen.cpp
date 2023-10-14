@@ -2,28 +2,51 @@
 #include "eig.h"
 #include "cmatrix.h"
 #include <iostream>
-
+#include "leqs.h"
+#include "qr.h"
+#include "qrc.h"
 using namespace std;
 
 Eigen::Eigen(Matrix B, double tol, int iter)
 {
-	A = B; // initialize A
+	A = B; // initialize Eigen::A
 
 	keig(A, tol, allVal, iter); // keig(.) defined in Eig.cpp
 	vSort(allVal);
-
 	disVal = distinct(allVal); // distinct(.) defined in cMatrix.cpp
-
-	S = cMatrix(A.getM(), A.getN());
-	cMatrix s = eigvecN(1, disVal.getM());
-	S.setblk(1, 1, s);
-
-	isDiag = (disVal.getN() == A.getM() || S.getN() == s.getN());
-	Sinv = (isDiag) ? cInverse(S) : cIdentity(A.getM());
+	eigIsReal = isReal(disVal);
 	Lamda = cMatrix(A.getM(), A.getN()); // get complex Lamda
 	for (int i = 1; i <= A.getM(); i++)
 	{
 		Lamda(i, i) = allVal(i);
+	}
+
+	if (!eigIsReal)
+	{
+		S = cMatrix(A.getM(), A.getN());
+		cMatrix s = eigvecN(1, disVal.getM());
+		S.setblk(1, 1, s);
+		isDiag = (disVal.getN() == A.getM() || S.getN() == s.getN());
+		Sinv = (isDiag) ? cInverse(S) : cIdentity(A.getM());
+	}
+	else
+	{
+		Matrix rDistVal = real(disVal);
+		rS = Matrix(A.getM(),A.getN());
+		Matrix rs = reigvecN(1, disVal.getM(), rDistVal);
+		rS.setblk(1,1,rs);
+		rS=normalize(rS);		
+		if (isDiag)
+		{
+			QR q(rS);
+			rSinv = q.inv();
+		}
+		else
+		{
+			rSinv = identity(A.getM());
+		}
+
+		rLamda = real(getLamda());
 	}
 }
 
@@ -85,6 +108,23 @@ cMatrix Eigen::eigvec(int k1, int k2)
 		B = combine(B, eigVal2Vec(A, disVal(i)));
 	}
 	return (B);
+}
+
+Matrix Eigen::reigvecN(int k1, int k2, Matrix rdistVal)
+{
+	Matrix B = reigVal2VecN(A, rdistVal(k1));
+	for (int i = k1 + 1; i <= k2 && i <= rdistVal.getM(); i++)
+	{
+		B = combine(B, reigVal2VecN(A, rdistVal(i)));
+	}
+	return (B);
+}
+
+Matrix Eigen::reigVal2VecN(Matrix A, double eigval)
+{
+	int n = A.getN();
+	A = A - (eigval * identity(n));
+	return nullspace(A);
 }
 
 bool Eigen::realLamda(Matrix &B)
