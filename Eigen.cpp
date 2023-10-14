@@ -21,7 +21,7 @@ Eigen::Eigen(Matrix B, double tol, int iter)
 		Lamda(i, i) = allVal(i);
 	}
 
-	if (!eigIsReal)
+	if (!eigIsReal) 
 	{
 		S = cMatrix(A.getM(), A.getN());
 		cMatrix s = eigvecN(1, disVal.getM());

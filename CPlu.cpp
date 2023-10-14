@@ -191,7 +191,7 @@ cMatrix cNull(cMatrix A)
 	Matrix u(size, 1);
 	for (int i = 1; i <= size; i++)
 	{
-		if (abs(A(i, i)) >= 1e-6)
+		if (abs(A(i, i)) >= 1e-5) // critical for ill-conditioned matrices
 		{
 			rank++;
 			u(i) = 1;
