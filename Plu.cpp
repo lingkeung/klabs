@@ -178,7 +178,7 @@ Matrix null(Matrix A)
 	Matrix u(size, 1);
 	for (int i = 1; i <= size; i++)
 	{
-		if (abs(A(i, i)) >= 1e-6)
+		if (abs(A(i, i)) >= 1e-3)
 		{
 			rank++;
 			u(i) = 1;

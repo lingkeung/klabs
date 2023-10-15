@@ -57,33 +57,35 @@ void leqs(Matrix A, Matrix b)
         if (e && m == n)
         {
             cout << "Unique exact solution = " << endl;
-            result.print();
+            result.print(4, 12);
         }
         else if (!e && m > n)
         {
             cout << "Unique least squares solution = " << endl;
-            result.print();
+            result.print(4, 12);
         }
     }
     else
     {
         SVD s(A);
         Matrix xpart = s.pinv() * b;
-        Matrix null = s.null();
+        // Matrix xpart = xp(A,b);
+        Matrix xnull = nullspace(A);
+        // Matrix xnull = snull(A);      // alternate solution
 
         if (e)
         {
             cout << "Exact particular solution = " << endl;
-            xpart.print();
+            xpart.print(4, 12);
             cout << "and" << endl
                  << endl;
             cout << "Exact nullspace = " << endl;
-            null.print();
+            xnull.print(4, 12);
         }
         else if (!e)
         {
             cout << "Minimum norm least squares solution = " << endl;
-            xpart.print();
+            xpart.print(4, 12);
         }
     }
 }
@@ -92,8 +94,8 @@ Matrix nullspace(Matrix A) // find nullspace of underdetermined system
 {
     int n = A.getN();
     int m = A.getM();
-    vector<int> ivar = icols(A);             // basic variables
-    vector<int> ieqn; // independent equations of homogenous system
+    vector<int> ivar = icols(A); // basic variables
+    vector<int> ieqn;            // independent equations of homogenous system
     if (m != n)
     {
         ieqn = icols(A.transpose());
@@ -104,7 +106,7 @@ Matrix nullspace(Matrix A) // find nullspace of underdetermined system
     }
 
     int r = ivar.size(); // rank(A);
-    Matrix R(r, r); // skeleton coefficient matrix of reduced system
+    Matrix R(r, r);      // skeleton coefficient matrix of reduced system
     // R.print();      // debug
     for (int i = 1; i <= r; i++)
     {

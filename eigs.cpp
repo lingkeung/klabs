@@ -9,19 +9,27 @@
 
 int main()
 {
-    //Matrix A(3, 3, {1, 1.5, 0.5, 1.5, 7, 5.5, 0.5, 5.5, 3});
-    Matrix A(3, 3, {3.0, -1, 0.00000, -1, 3, -1, 0.00000, -1, 3.0});
+    // Matrix A(3, 3, {1, 1.5, 0.5, 1.5, 7, 5.5, 0.5, 5.5, 3});
+    // Matrix A(3, 3, {3.0, -1, 0.00000, -1, 3, -1, 0.00000, -1, 3.0});
     // Matrix A(3, 3, {0, -2, 2, -2, -3, 4, 2, 4, -3});
-    //  Matrix A(3,3,{2,2,0,2,1,2,0,2,0});
-     //Matrix A(3, 3, {0, -1, 0, -1, 0, -1, 0, -1, 0});
-    Eigen e(A);
+    // Matrix A(3,3,{2,2,0,2,1,2,0,2,0});
+    // Matrix A(3, 3, {0, -1, 0, -1, 0, -1, 0, -1, 0});
+    /*Eigen e(A);
     Matrix Lamda = e.getrLamda();
+    cout<<"Lamda = "<<endl;
+    Lamda.print();
     Matrix S = e.getrS();
     Matrix Sinv = e.getrSinv();
     cout << "Check S*Lamda*Sinv" << endl;
     (S * Lamda * Sinv).print();
     cout << "= A" << endl;
-    A.print();
-   
+    A.print();*/
+    //Matrix A(3, 4, {1, -5, 2, -3, 5, 3, 6, -1, 2, 4, 2, 1});
+    Matrix b(4, 1);
+    // leqs(A,b);
+    // nullspace(A).print();
+     Matrix A(4,5,{1,0,1,-1,-3,1,2,-1,0,-1,4,6,-2,-4,3,2,-2,4,-7,4});
+    leqs(A, b);
+    (A*nullspace(A)).print(4,12);
     return 0;
 }
