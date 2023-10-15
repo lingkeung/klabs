@@ -43,6 +43,12 @@ bool usoln(Matrix A)
 
 void leqs(Matrix A, Matrix b)
 {
+    cout << "Analysis of A*x = b" << endl;
+    cout << "A = " << endl;
+    A.print(4, 12);
+    cout << "b = " << endl;
+    b.print(4, 12);
+
     int n = A.getN();
     int m = A.getM();
     bool e, u;
