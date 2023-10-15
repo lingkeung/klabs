@@ -15,13 +15,14 @@ Eigen::Eigen(Matrix B, double tol, int iter)
 	vSort(allVal);
 	disVal = distinct(allVal); // distinct(.) defined in cMatrix.cpp
 	eigIsReal = isReal(disVal);
+	isDiag = (allVal.getM() == disVal.getM());
 	Lamda = cMatrix(A.getM(), A.getN()); // get complex Lamda
 	for (int i = 1; i <= A.getM(); i++)
 	{
 		Lamda(i, i) = allVal(i);
 	}
 
-	if (!eigIsReal) 
+	if (!eigIsReal)
 	{
 		S = cMatrix(A.getM(), A.getN());
 		cMatrix s = eigvecN(1, disVal.getM());
@@ -32,10 +33,10 @@ Eigen::Eigen(Matrix B, double tol, int iter)
 	else
 	{
 		Matrix rDistVal = real(disVal);
-		rS = Matrix(A.getM(),A.getN());
+		rS = Matrix(A.getM(), A.getN());
 		Matrix rs = reigvecN(1, disVal.getM(), rDistVal);
-		rS.setblk(1,1,rs);
-		rS=normalize(rS);		
+		rS.setblk(1, 1, rs);
+		rS = normalize(rS);
 		if (isDiag)
 		{
 			QR q(rS);
