@@ -101,16 +101,7 @@ Matrix nullspace(Matrix A) // find nullspace of underdetermined system
     int n = A.getN();
     int m = A.getM();
     vector<int> ivar = icols(A); // basic variables
-    vector<int> ieqn;            // independent equations of homogenous system
-    if (m != n)
-    {
-        ieqn = icols(A.transpose());
-    }
-    else
-    {
-        ieqn = ivar;
-    }
-
+    vector<int> ieqn = icols(A.transpose()); // independent equations of homogenous system
     int r = ivar.size(); // rank(A);
     Matrix R(r, r);      // skeleton coefficient matrix of reduced system
     // R.print();      // debug
@@ -137,7 +128,6 @@ Matrix nullspace(Matrix A) // find nullspace of underdetermined system
         if (!isIn)
         {
             fvar.push_back(i);
-            // cout << "i = " << i << endl; // debug
         }
     }
 
@@ -152,19 +142,16 @@ Matrix nullspace(Matrix A) // find nullspace of underdetermined system
             B(i, j) = -1 * A(ieqn[i - 1], fvar[j - 1]); // negative of coefficient of "1" free variable
         }
     }
-    // B.print(); // debug
     QR q(R); // solve reduced system using QR decomposition
     for (int j = 1; j <= n - r; j++)
     {
         B.setblk(1, j, q.axb(B(1, r, j, j))); // overwrite B with solution of linear system
     }
-    // B.print();                         // debug
     Matrix nspace(n, n - r);           // construct nullspace
     for (int j = 1; j <= (n - r); j++) // choose one free variable as 1, rest 0's
     {
         nspace(fvar[j - 1], j) = 1;
     }
-    // nspace.print();                    // debug
     for (int j = 1; j <= (n - r); j++) // place elements of solution of reduced system in correct position
     {
         for (int k = 0; k < r; k++)
@@ -172,7 +159,6 @@ Matrix nullspace(Matrix A) // find nullspace of underdetermined system
             nspace(ivar[k], j) = B(k + 1, j); // B contains solutions of reduced system
         }
     }
-    // nspace.print(); // debug
     return nspace;
 }
 

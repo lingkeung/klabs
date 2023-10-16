@@ -36,7 +36,7 @@ Eigen::Eigen(Matrix B, double tol, int iter)
 		rS = Matrix(A.getM(), A.getN());
 		Matrix rs = reigvecN(1, disVal.getM(), rDistVal);
 		rS.setblk(1, 1, rs);
-		rS = normalize(rS);
+		// rS = normalize(rS);
 		if (isDiag)
 		{
 			QR q(rS);

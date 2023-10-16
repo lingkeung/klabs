@@ -233,47 +233,46 @@ Matrix null(Matrix A)
 
 vector<int> icols(Matrix A)
 {
-    vector<int> result;
-    int m = A.getM(), n = A.getN();
-    int maxRank = (m <= n) ? m : n;
-    int p = 0;
-    for (int k = 1; k <= maxRank - 1; k++)
-    {
-        double max = 0;
-        for (int i = k; i <= m; i++)
-        {
-            if (abs(A(i, k)) > max)
-            {
-                max = abs(A(i, k));
-                p = i;
-            }
-        }
-        if (p != k)
-        {
-            rexch(p, k, A);
-        }
+	vector<int> result;
+	int m = A.getM(), n = A.getN();
+	int maxRank = (m <= n) ? m : n;
+	int p = 0;
+	for (int k = 1; k <= maxRank - 1; k++)
+	{
+		double max = 0;
+		for (int i = k; i <= m; i++)
+		{
+			if (abs(A(i, k)) > max)
+			{
+				max = abs(A(i, k));
+				p = i;
+			}
+			if  (p != k)
+			{
+				rexch(p, k, A);
+			}
+		}
+		if (abs(A(k, k)) >= 1e-6)
+		{
+			A.setblk(k + 1, k, (1 / A(k, k)) * A(k + 1, m, k, k)); // store multipliers (L)
+			A.setblk(k + 1, k + 1, A(k + 1, m, k + 1, n) - A(k + 1, m, k, k) * A(k, k, k + 1, n));
+			for (int i = k + 1; i <= m; i++)
+			{
+				A(i, k) = 0; // restore zeros (erase multipliers)
+			}
+			result.push_back(k);
+		}
+	}
 
-        if (abs(A(k, k)) >= 1e-6)
-        {
-            A.setblk(k + 1, k, (1 / A(k, k)) * A(k + 1, m, k, k)); // store multipliers (L)
-            A.setblk(k + 1, k + 1, A(k + 1, m, k + 1, n) - A(k + 1, m, k, k) * A(k, k, k + 1, n));
-            for (int i = k + 1; i <= m; i++)
-            {
-                A(i, k) = 0; // restore zeros (erase multipliers)
-            }
-            result.push_back(k);
-        }
-    }
+	for (int i = 0; i <= n - maxRank; i++)
+	{
+		if (abs(A(maxRank, maxRank + i)) >= 1e-5)
+		{
+			result.push_back(maxRank + i); // check for last column pivot
+			break;
+		}
+	}
 
-    for (int i = 0; i <= n - maxRank; i++)
-    {
-        if (abs(A(maxRank, maxRank + i)) >= 1e-5)
-        {
-            result.push_back(maxRank + i); // check for last column pivot
-            break;
-        }
-    }
-
-    // A.print(); // for debugging
-    return result;
+	// A.print(); // for debugging
+	return result;
 }
