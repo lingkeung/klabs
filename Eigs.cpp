@@ -1,6 +1,6 @@
 #include "eig.h"
 #include "eigen.h"
-#include "leqs.h"
+//#include "leqs.h"
 
 void eigs(Matrix A)
 {
