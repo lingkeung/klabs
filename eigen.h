@@ -45,4 +45,5 @@ public:
 };
 
 double norm2(Matrix A);
+void eigs(Matrix A);
 #endif

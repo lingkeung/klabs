@@ -1,7 +1,6 @@
 #include "eig.h"
 #include "eigen.h"
-//#include "leqs.h"
-
+/*
 void eigs(Matrix A)
 {
     cout << "Analysis of Ax = \u03BBx" << endl
@@ -61,7 +60,7 @@ void eigs(Matrix A)
         }
     }
 }
-
+*/
 int main()
 {
     // Matrix A(3, 3, {1, 1.5, 0.5, 1.5, 7, 5.5, 0.5, 5.5, 3});
@@ -72,8 +71,9 @@ int main()
     //  Matrix A(3, 4, {1, -5, 2, -3, 5, 3, 6, -1, 2, 4, 2, 1});
     //  Matrix A(4, 5, {1, 0, 1, -1, -3, 1, 2, -1, 0, -1, 4, 6, -2, -4, 3, 2, -2, 4, -7, 4});
     //  Matrix A(3, 3, {-1, 1, 0, -4, 3, 0, 1, 0, 2});
-    //Matrix A(2, 2, {1, -1, 1, 1});
-    Matrix A(3,3,{4.0/5, -3.0/5,0,3.0/5,4.0/5,0,1,2,2});
+    // Matrix A(2, 2, {1, -1, 1, 1});
+    // Matrix A(3,3,{4.0/5, -3.0/5,0,3.0/5,4.0/5,0,1,2,2});
+    Matrix A(3, 3, {0, -1, 1, -1, 0, 1, 1, 1, 0});
     eigs(A);
     // Matrix B(3,3,{-2,1,0,-4,2,0,1,0,1});
     // Matrix ns = nullspace(B);

@@ -15,7 +15,6 @@ Eigen::Eigen(Matrix B, double tol, int iter)
 	vSort(allVal);
 	disVal = distinct(allVal); // distinct(.) defined in cMatrix.cpp
 	eigIsReal = isReal(disVal);
-	isDiag = (allVal.getM() == disVal.getM());
 	Lamda = cMatrix(A.getM(), A.getN()); // get complex Lamda
 	for (int i = 1; i <= A.getM(); i++)
 	{
@@ -36,6 +35,7 @@ Eigen::Eigen(Matrix B, double tol, int iter)
 		rS = Matrix(A.getM(), A.getN());
 		Matrix rs = reigvecN(1, disVal.getM(), rDistVal);
 		rS.setblk(1, 1, rs);
+		isDiag = (disVal.getN() == A.getM() || rS.getN() == rs.getN());
 		// rS = normalize(rS);
 		if (isDiag)
 		{
@@ -157,3 +157,64 @@ double norm2(Matrix A)
 	Eigen a(A);
 	return sqrt(a.allEigval(1, 1)(1).a);
 }
+
+void eigs(Matrix A)
+{
+    cout << "Analysis of Ax = \u03BBx" << endl
+         << endl;
+    cout << "Matrix A = " << endl;
+    A.print();
+    Eigen e(A);
+    if (e.getEigIsReal())
+    {
+        cout << "The eigen system is real." << endl
+             << endl;
+        if (e.get_isDiag())
+        {
+            cout << "Eigenvalues Lamda = " << endl;
+            e.getrLamda().print(4, 12);
+            cout << "Matrix is diagonizable." << endl
+                 << endl;
+            cout << "Eigen space S = " << endl;
+            e.getrS().print(4, 12);
+            cout << "Inverse of S, Sinv = " << endl;
+            e.getrSinv().print(4, 12);
+        }
+        else
+        {
+            cout << "Eigenvalues Lamda = " << endl;
+            Matrix Lamda = e.getrLamda();
+            Lamda.print(4, 12);
+            cout << "Matrix is not diagonizable." << endl;
+            cout << "Eigen space S = " << endl;
+            Matrix S = e.getrS();
+            S.print(4, 12);
+        }
+    }
+    else
+    {
+        cout << "The eigen system is complex" << endl;
+        if (e.get_isDiag())
+        {
+            cout << "Eigenvalues Lamda = " << endl;
+            e.getLamda().print();
+            cout << "Matrix is diagonizable." << endl
+                 << endl;
+            cout << "Eigen space S = " << endl;
+            e.getS().print();
+            cout << "Inverse of S, Sinv = " << endl;
+            e.getSinv().print();
+        }
+        else
+        {
+            cout << "Eigenvalues Lamda = " << endl;
+            cMatrix Lamda = e.getLamda();
+            Lamda.print();
+            cout << "Matrix is not diagonizable." << endl;
+            cout << "Eigen space S = " << endl;
+            cMatrix S = e.getS();
+            S.print();
+        }
+    }
+}
+
