@@ -45,5 +45,6 @@ cMatrix distinct(cMatrix v);
 cMatrix combine(cMatrix A, cMatrix B);
 Matrix real(cMatrix A);
 bool isReal(cMatrix A);
+cMatrix ndft(Matrix x); // naive discrete fourier transform
 
 #endif
