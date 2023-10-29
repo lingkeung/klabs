@@ -344,17 +344,17 @@ cMatrix ndft(Matrix x)
     const double pi = M_PI;
     int N = x.getM();
     double ampW = 1;
-    double argW = -2 * pi / N;
+    double argW = -2 * pi / N; // WN = exp(-i*2*pi/N)
     cMatrix W(N, N);
     for (int n = 0; n <= N - 1; n++)
     {
         for (int k = 0; k <= N - 1; k++)
         {
-            W(n + 1, k + 1) = pp2r(ampW, argW, n * k);
+            W(n + 1, k + 1) = pp2r(ampW, argW, n * k); // powered polar to rectangular
         }
     }
     cMatrix cx = cplex(x);
     cMatrix X = W * cx;
-    // X.print();
-    return X;
+	cMatrix XoN = (1.0/N) * X;
+    return XoN;
 }

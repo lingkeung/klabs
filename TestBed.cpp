@@ -3,6 +3,8 @@
 #include "cn.h"
 #include "cmatrix.h"
 
+
+
 /* bool isSymmetric(Matrix A)
 {
     bool result = true;
@@ -66,24 +68,23 @@ int main()
     //  Matrix B(3,3,{-2,1,0,-4,2,0,1,0,1});
     //  svds(A);
     //  cout << fixed << setprecision(15);
-    const double pi = M_PI;
+    /* const double pi = M_PI;
     int N = 4;
     double ampW = 1;
     double argW = -2 * pi / N;
-    C cW = p2r(ampW, argW);
-    cW.print();
     cMatrix W(N, N);
     for (int n = 0; n <= N - 1; n++)
     {
         for (int k = 0; k <= N - 1; k++)
         {
-            W(n + 1, k + 1) = pp2r(1, argW, n * k);
+            W(n + 1, k + 1) = pp2r(ampW, argW, n * k);
         }
     }
-    W.print();
     cMatrix x(N, 1, {C(1, 0), C(1, 0), C(0, 0), C(0, 0)});
     cMatrix X = W * x;
-    X.print();
+    X.print(); */
+    Matrix x(4,1,{1,1,0,0});
+    ndft(x).print();
 
     return 0;
 }
