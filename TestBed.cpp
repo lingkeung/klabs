@@ -83,7 +83,7 @@ int main()
     cMatrix x(N, 1, {C(1, 0), C(1, 0), C(0, 0), C(0, 0)});
     cMatrix X = W * x;
     X.print(); */
-    Matrix x(4,1,{1,1,0,0});
+    Matrix x(4,1,{2,0,-2,0});
     ndft(x).print();
 
     return 0;

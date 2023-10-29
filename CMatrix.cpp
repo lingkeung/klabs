@@ -339,22 +339,22 @@ bool isReal(cMatrix A)
 	return result;
 }
 
-cMatrix ndft(Matrix x)
+cMatrix ndft(Matrix x) // naive discrete fourier transform
 {
-    const double pi = M_PI;
-    int N = x.getM();
-    double ampW = 1;
-    double argW = -2 * pi / N; // WN = exp(-i*2*pi/N)
-    cMatrix W(N, N);
-    for (int n = 0; n <= N - 1; n++)
-    {
-        for (int k = 0; k <= N - 1; k++)
-        {
-            W(n + 1, k + 1) = pp2r(ampW, argW, n * k); // powered polar to rectangular
-        }
-    }
-    cMatrix cx = cplex(x);
-    cMatrix X = W * cx;
-	cMatrix XoN = (1.0/N) * X;
-    return XoN;
+	const double pi = M_PI;
+	int N = x.getM();
+	double ampWN = 1;
+	double argWN = -2 * pi / N; // WN = exp(-i*2*pi/N)
+	cMatrix W(N, N);
+	for (int n = 0; n <= N - 1; n++)
+	{
+		for (int k = 0; k <= N - 1; k++)
+		{
+			W(n + 1, k + 1) = pp2r(ampWN, argWN, n * k); // powered polar to rectangular
+		}
+	}
+	cMatrix cx = cplex(x);
+	cMatrix X = W * cx;
+	cMatrix XoN = (1.0 / N) * X;
+	return XoN;
 }
