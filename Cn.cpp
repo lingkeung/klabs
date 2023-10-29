@@ -65,3 +65,16 @@ bool isReal(C cn)
 {
 	return (abs(cn.b) < 1e-8) ? true : false;
 }
+
+C p2r(double amplitude, double theta)
+{
+	C result(amplitude * cos(theta), amplitude * sin(theta));
+	return result;
+}
+
+C pp2r(double amplitude, double theta, double power)
+{
+		double amp = pow(amplitude, power);
+		double arg = theta * power;
+		return p2r(amp, arg);
+}

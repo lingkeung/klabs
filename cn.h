@@ -22,5 +22,7 @@ public:
 
 double abs(C cn);
 bool isReal(C cn);
+C p2r(double amplitude, double theta);
+C pp2r(double amplitude, double theta, double power);
 
 #endif

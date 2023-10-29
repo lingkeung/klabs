@@ -33,7 +33,7 @@ public:
 	Matrix getrS() { return rS; }
 	Matrix getrSinv() { return rSinv; }
 	Matrix getrLamda() { return rLamda; }
-	bool getEigIsReal(){return eigIsReal;}
+	bool getEigIsReal() { return eigIsReal; }
 	bool realLamda(Matrix &B);
 	cMatrix allEigval(int k1, int k2);
 	cMatrix disEigval(int k1, int k2);
@@ -46,4 +46,40 @@ public:
 
 double norm2(Matrix A);
 void eigs(Matrix A);
+
+/* class EigenSym
+{
+	Matrix S;
+	Matrix Lamda;
+	Matrix Sinv;
+
+public:
+	EigenSym(){};
+	EigenSym(Matrix A, bool sureSym = true)
+	{
+		if (!sureSym)
+		{
+			sureSym = isSymmetric(A);
+		}
+	}
+};
+
+bool isSymmetric(Matrix A)
+{
+	bool result = true;
+	for (int i = 1; i <= A.getM(); i++)
+	{
+		for (int j = 1; j <= A.getN(); j++)
+		{
+			if (abs(A(i, j) - A(j, i)) >= 1e-10)
+			{
+				result = false;
+				return result;
+			}
+		}
+	}
+	cout << result << endl;
+	return result;
+}
+ */
 #endif
