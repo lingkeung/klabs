@@ -67,6 +67,7 @@ cMatrix fdft(Matrix x) // fast discrete fourier transform
             x1(i) = x(2 * i - 1);
             x2(i) = x(2 * i);
         }
+
         cMatrix X1 = fdft(x1); // step 2 recursive calls
         cMatrix X2 = fdft(x2);
 
@@ -77,8 +78,8 @@ cMatrix fdft(Matrix x) // fast discrete fourier transform
         for (int j = 0; j <= m - 1; j++)
         {
             C WNj = pp2r(ampWN, argWN, j);
-            X(j + 1) = X1(j + 1) + WNj * X2(j + 1);
-            X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1);
+            X(j + 1) = X1(j + 1) + WNj * X2(j + 1); // these formulas are the heart of fft!
+            X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
         }
         // X.print();
         return X;
