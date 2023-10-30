@@ -50,7 +50,7 @@ void svds(Matrix A)
     Matrix inv(double tol = 1e-8);
 }
  */
-cMatrix fdft(Matrix x) // fast discrete fourier transform
+/* cMatrix fdft(Matrix x) // fast discrete fourier transform, N = 2^n
 {
     int N = x.getM();
     if (N == 1) // base case
@@ -85,6 +85,7 @@ cMatrix fdft(Matrix x) // fast discrete fourier transform
         return X;
     }
 }
+ */
 int main()
 {
     // Matrix A(3, 3, {1, 1.5, 0.5, 1.5, 7, 5.5, 0.5, 5.5, 3});
@@ -117,6 +118,7 @@ int main()
     cMatrix X = W * x;
     X.print(); */
     Matrix x(8, 1, {0, 1, 2, 3, 4, 5, 6, 7});
+    Matrix xx(4,1,{8,4,8,0});
     /* // ndft(x).print();
     // step 1 split
     int N = x.getM();
@@ -151,5 +153,7 @@ int main()
     result.print();
     cMatrix result2 = ndft(x);
     result2.print();
+    cMatrix result3 = fdft(xx);
+    result3.print();
     return 0;
 }

@@ -359,3 +359,40 @@ cMatrix ndft(Matrix x) // naive discrete fourier transform
 	//return XoN;
 	return X;
 }
+
+cMatrix fdft(Matrix x) // fast discrete fourier transform, N = 2^n
+{
+    int N = x.getM();
+    if (N == 1) // base case
+    {
+        return cplex(x);
+    }
+    else
+    {
+        int m = N / 2; // step 1 split
+        Matrix x1(m, 1);
+        Matrix x2(m, 1);
+        for (int i = 1; i <= m; i++)
+        {
+            x1(i) = x(2 * i - 1);
+            x2(i) = x(2 * i);
+        }
+
+        cMatrix X1 = fdft(x1); // step 2 recursive calls
+        cMatrix X2 = fdft(x2);
+
+        cMatrix X(N, 1); // step 3 combine
+        const double pi = M_PI;
+        double ampWN = 1;
+        double argWN = -2 * pi / N;
+        for (int j = 0; j <= m - 1; j++)
+        {
+            C WNj = pp2r(ampWN, argWN, j);
+            X(j + 1) = X1(j + 1) + WNj * X2(j + 1); // these formulas are the heart of fft!
+            X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
+        }
+        // X.print();
+        return X;
+    }
+}
+
