@@ -3,8 +3,6 @@
 #include "cn.h"
 #include "cmatrix.h"
 
-
-
 /* bool isSymmetric(Matrix A)
 {
     bool result = true;
@@ -83,8 +81,36 @@ int main()
     cMatrix x(N, 1, {C(1, 0), C(1, 0), C(0, 0), C(0, 0)});
     cMatrix X = W * x;
     X.print(); */
-    Matrix x(4,1,{2,0,-2,0});
-    ndft(x).print();
+    Matrix x(8, 1, {0, 1, 2, 3, 4, 5, 6, 7});
+    // ndft(x).print();
+    // step 1 split
+    int N = x.getM();
+    int m = N / 2;
+    Matrix x1(m, 1);
+    Matrix x2(m, 1);
+    for (int i = 1; i <= m; i++)
+    {
+        x1(i) = x(2 * i - 1);
+        x2(i) = x(2 * i);
+    }
 
+    // step 2 transform
+    cMatrix X1 = ndft(x1);
+    cMatrix X2 = ndft(x2);
+    // X1.print();
+    // X2.print();
+
+    // step 3 combine
+    cMatrix X(N, 1);
+    const double pi = M_PI;
+    double ampWN = 1;
+    double argWN = -2 * pi / N;
+    for (int j = 0; j <= m - 1; j++)
+    {
+        C WNj = pp2r(ampWN, argWN, j);
+        X(j + 1) = X1(j + 1) + WNj * X2(j + 1);
+        X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1);
+    }
+    X.print();
     return 0;
 }

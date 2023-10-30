@@ -355,6 +355,7 @@ cMatrix ndft(Matrix x) // naive discrete fourier transform
 	}
 	cMatrix cx = cplex(x);
 	cMatrix X = W * cx;
-	cMatrix XoN = (1.0 / N) * X;
-	return XoN;
+	//cMatrix XoN = (1.0 / N) * X;
+	//return XoN;
+	return X;
 }
