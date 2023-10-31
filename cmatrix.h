@@ -46,6 +46,9 @@ cMatrix combine(cMatrix A, cMatrix B);
 Matrix real(cMatrix A);
 bool isReal(cMatrix A);
 cMatrix ndft(Matrix x); // naive discrete fourier transform
+Matrix nidft(cMatrix X); // naive inverse discrete fourier transform
 cMatrix fdft(Matrix x); // fast discrete fourier transform (radix-2)
+cMatrix fidftHelp(cMatrix x); // helper fast discrete fourier transform, N = 2^n
+Matrix fidft(cMatrix X);
 
 #endif

@@ -3,25 +3,7 @@
 #include "cn.h"
 #include "cmatrix.h"
 
-/* bool isSymmetric(Matrix A)
-{
-    bool result = true;
-    for (int i = 1; i <= A.getM(); i++)
-    {
-        for (int j = 1; j <= A.getN(); j++)
-        {
-            if (abs(A(i, j) - A(j, i)) >= 1e-10)
-            {
-                result = false;
-                return result;
-            }
-        }
-    }
-    cout << result << endl;
-    return result;
-}
-
-void svds(Matrix A)
+/* void svds(Matrix A)
 {
     cout << "SVD Analysis" << endl;
     cout << "Matrix A = " << endl;
@@ -50,42 +32,8 @@ void svds(Matrix A)
     Matrix inv(double tol = 1e-8);
 }
  */
-/* cMatrix fdft(Matrix x) // fast discrete fourier transform, N = 2^n
-{
-    int N = x.getM();
-    if (N == 1) // base case
-    {
-        return cplex(x);
-    }
-    else
-    {
-        int m = N / 2; // step 1 split
-        Matrix x1(m, 1);
-        Matrix x2(m, 1);
-        for (int i = 1; i <= m; i++)
-        {
-            x1(i) = x(2 * i - 1);
-            x2(i) = x(2 * i);
-        }
 
-        cMatrix X1 = fdft(x1); // step 2 recursive calls
-        cMatrix X2 = fdft(x2);
 
-        cMatrix X(N, 1); // step 3 combine
-        const double pi = M_PI;
-        double ampWN = 1;
-        double argWN = -2 * pi / N;
-        for (int j = 0; j <= m - 1; j++)
-        {
-            C WNj = pp2r(ampWN, argWN, j);
-            X(j + 1) = X1(j + 1) + WNj * X2(j + 1); // these formulas are the heart of fft!
-            X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
-        }
-        // X.print();
-        return X;
-    }
-}
- */
 int main()
 {
     // Matrix A(3, 3, {1, 1.5, 0.5, 1.5, 7, 5.5, 0.5, 5.5, 3});
@@ -102,58 +50,20 @@ int main()
     //  Matrix B(3,3,{-2,1,0,-4,2,0,1,0,1});
     //  svds(A);
     //  cout << fixed << setprecision(15);
-    /* const double pi = M_PI;
-    int N = 4;
-    double ampW = 1;
-    double argW = -2 * pi / N;
-    cMatrix W(N, N);
-    for (int n = 0; n <= N - 1; n++)
-    {
-        for (int k = 0; k <= N - 1; k++)
-        {
-            W(n + 1, k + 1) = pp2r(ampW, argW, n * k);
-        }
-    }
-    cMatrix x(N, 1, {C(1, 0), C(1, 0), C(0, 0), C(0, 0)});
-    cMatrix X = W * x;
-    X.print(); */
     Matrix x(8, 1, {0, 1, 2, 3, 4, 5, 6, 7});
-    Matrix xx(4,1,{8,4,8,0});
-    /* // ndft(x).print();
-    // step 1 split
-    int N = x.getM();
-    int m = N / 2;
-    Matrix x1(m, 1);
-    Matrix x2(m, 1);
-    for (int i = 1; i <= m; i++)
-    {
-        x1(i) = x(2 * i - 1);
-        x2(i) = x(2 * i);
-    }
-
-    // step 2 transform
-    cMatrix X1 = ndft(x1);
-    cMatrix X2 = ndft(x2);
-    // X1.print();
-    // X2.print();
-
-    // step 3 combine
-    cMatrix X(N, 1);
-    const double pi = M_PI;
-    double ampWN = 1;
-    double argWN = -2 * pi / N;
-    for (int j = 0; j <= m - 1; j++)
-    {
-        C WNj = pp2r(ampWN, argWN, j);
-        X(j + 1) = X1(j + 1) + WNj * X2(j + 1);
-        X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1);
-    }
-    X.print(); */
+    // Matrix xx(4, 1, {8, 4, 8, 0});
+    // Matrix matlab(8, 1, {1, 3, 5, 7, 9, 11, 13, 15});
     cMatrix result = fdft(x);
     result.print();
-    cMatrix result2 = ndft(x);
+    Matrix result1 = nidft(result);
+    result1.print();
+    Matrix result2 = fidft(result);
     result2.print();
-    cMatrix result3 = fdft(xx);
-    result3.print();
+    // cMatrix result2 = ndft(x);
+    // result2.print();
+    // cMatrix result3 = fdft(xx);
+    // result3.print();
+    // cMatrix result4 = fdft(matlab);
+    // result4.print();
     return 0;
 }
