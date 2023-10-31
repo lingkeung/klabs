@@ -415,7 +415,7 @@ cMatrix fdft(Matrix x) // fast discrete fourier transform, N = 2^n
 	}
 }
 
-cMatrix fidftHelp(cMatrix x) // helper fast discrete fourier transform, N = 2^n
+cMatrix fidftHelp(cMatrix x) // helper fast inverse discrete fourier transform, N = 2^n
 {
 	int N = x.getM();
 	if (N == 1) // base case
