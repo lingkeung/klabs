@@ -451,7 +451,7 @@ cMatrix fidftHelp(cMatrix x) // helper fast inverse discrete fourier transform, 
 	}
 }
 
-Matrix fidft(cMatrix X)
+Matrix fidft(cMatrix X)// fast inverse discrete fourier transform
 {
 	int N = X.getM();
 	return real((1.0 / N) * fidftHelp(X));
