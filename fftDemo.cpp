@@ -12,12 +12,12 @@ void StandaloneApplication(int argc, char **argv)
     double T = N / fs;            // timespan
     Matrix t = linspace(N, 0, T); // sampling instants
 
-    Matrix signal1(N, 1); // test signal 1
+    Matrix signal(N, 1); // test signal
     for (int i = 1; i <= N; i++)
     {
-        signal1(i) = sin(2 * pi * 30 * t(i)); // 30hz sine wave
+        signal(i) = sin(2 * pi * 50 * t(i)) + 0.5 * sin(2 * pi * 100 * t(i));
     }
-    cMatrix dft = (1 / N) * fdft(signal1); // fdft() is a radix-2 fft function 
+    cMatrix dft = (1 / N) * fdft(signal); // fdft() is a radix-2 fft function
 
     N = N / 2 + 1; // display valid half of spectrum only
 
@@ -30,7 +30,7 @@ void StandaloneApplication(int argc, char **argv)
     double f1 = 1 / T;                             // fundamental frequency
     Matrix frequency = f1 * linspace(N, 0, N - 1); // prepare frequency range
 
-    Graph g(N, frequency, spectrum); // plot spectrum 
+    Graph g(N, frequency, spectrum); // plot spectrum
     g.xy();
 }
 
