@@ -8,10 +8,10 @@ void StandaloneApplication(int argc, char **argv)
     cout << "Spectrum Analysis Simulation" << endl;
 
     const double pi = M_PI;
-    double fs = 500;              // sampling frequency
+    double fs = 500;               // sampling frequency [Hz]
     double Ns = pow(2, 14);        // no. of samples (radix-2)
-    double T = Ns / fs;            // timespan
-    Matrix t = linspace(Ns, 0, T); // sampling instants
+    double T = Ns / fs;            // timespan [s]
+    Matrix t = linspace(Ns, 0, T); // sampling time instants
 
     Matrix signal(Ns, 1); // test signal
     for (int i = 1; i <= Ns; i++)
@@ -19,13 +19,11 @@ void StandaloneApplication(int argc, char **argv)
         signal(i) = sin(2 * pi * 50 * t(i)) + 0.5 * sin(2 * pi * 100 * t(i));
     }
     Random rand;
-    Matrix noise = rand.matrix(Ns, 1, 'u', -5, 5);
+    Matrix noise = rand.matrix(Ns, 1, 'u', -5, 5); // random noise
     Matrix sPn = signal + noise;
     cMatrix dft = (1 / Ns) * fdft(sPn); // fdft() is a radix-2 fft function
-
-    int N = Ns / 2 + 1; // display valid half of spectrum only
-
-    Matrix spectrum(N, 1); // prepare spectrum
+    int N = Ns / 2 + 1;                 // display valid half of amplitude spectrum only
+    Matrix spectrum(N, 1);              // prepare spectrum
     for (int i = 1; i <= N; i++)
     {
         spectrum(i) = 2 * abs(dft(i));
@@ -35,7 +33,7 @@ void StandaloneApplication(int argc, char **argv)
     Matrix frequency = f1 * linspace(N, 0, N - 1); // prepare frequency range
 
     Graph gs(N, frequency, spectrum); // spectrum plot
-    gs.set_opx("AL");
+    gs.set_opx("AL");                 // axes and line
     gs.set_title("x: Frequency [Hz] y: Amplitude [2*abs(Cn)]");
     gs.xy();
 
