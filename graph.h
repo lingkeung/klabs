@@ -20,7 +20,7 @@ private:
 	Matrix w;
 	const char *opu = "AP";
 
-	const char *title = "Graph";
+	const char *title = "Graph;x;y;z";
 	int marker = 4;
 
 public:

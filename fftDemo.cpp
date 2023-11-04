@@ -23,7 +23,7 @@ void StandaloneApplication(int argc, char **argv)
     Matrix sPn = signal + noise;
     cMatrix dft = (1 / Ns) * fdft(sPn); // fdft() is a radix-2 fft function
     int N = Ns / 2 + 1;                 // display valid half of amplitude spectrum only
-    Matrix spectrum(N, 1);              // prepare spectrum
+    Matrix spectrum(N, 1);              // prepare spectrum from dft
     for (int i = 1; i <= N; i++)
     {
         spectrum(i) = 2 * abs(dft(i));
@@ -34,12 +34,12 @@ void StandaloneApplication(int argc, char **argv)
 
     Graph gs(N, frequency, spectrum); // spectrum plot
     gs.set_opx("AL");                 // axes and line
-    gs.set_title("x: Frequency [Hz] y: Amplitude [2*abs(Cn)]");
+    gs.set_title("Spectrum;Frequency [Hz];Amplitude [2*abs(Cn)]");
     gs.xy();
 
-    Graph gt(Ns, t, sPn); // time domain plot
+    Graph gt(Ns, t, sPn); // time amplitude plot
     gt.set_opx("AL");
-    gt.set_title("x: Time [s] y: Amplitude");
+    gt.set_title("Signal Plus Noise;Time [s];Amplitude");
     gt.xy();
 }
 
