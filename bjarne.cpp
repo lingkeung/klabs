@@ -40,5 +40,6 @@ int main()
         cout << mat.getvC()[i] << "  " << endl;
     }
     mat.print();
+    mat.hermitian().print();
     return 0;
 }

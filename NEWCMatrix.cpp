@@ -35,15 +35,15 @@ void newcMatrix::print()
     }
 }
 
-/* cMatrix cMatrix::hermitian()
+ newcMatrix newcMatrix::hermitian()
 {
-    cMatrix B(this->n, this->m);
+    newcMatrix B(this->n, this->m);
     for (int i = 1; i <= this->n; i++)
         for (int j = 1; j <= this->m; j++)
-            B(i, j) = ~(*this)(j, i);
+            B(i, j) = conj((*this)(j, i));
     return B;
 }
-*/
+
 
 C newcMatrix::operator()(const int i, const int j) const
 {

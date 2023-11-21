@@ -22,7 +22,7 @@ public:
     int getM() { return m; }
     int getN() { return n; }
     vector<C> getvC() { return vC; }
-    //cMatrix hermitian();
+    newcMatrix hermitian();
     C operator()(const int i, const int j) const;
     C &operator()(const int i, const int j);
     C operator()(const int k) const;
