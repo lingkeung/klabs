@@ -3,4 +3,7 @@
     "terminal.integrated.fontSize": 18,
     "window.zoomLevel": 0,
     "editor.multiCursorModifier": "ctrlCmd",
+    "files.associations": {
+        "complex": "cpp"
+    },
 }
