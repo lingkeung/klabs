@@ -19,10 +19,10 @@ public:
     newcMatrix(const int m = 0, const int n = 0);
     newcMatrix(const int m, const int n, vector<C> vC);
     void print();
-    /*int getM() { return m; }
+    int getM() { return m; }
     int getN() { return n; }
     vector<C> getvC() { return vC; }
-    cMatrix hermitian();*/
+    //cMatrix hermitian();
     C operator()(const int i, const int j) const;
     C &operator()(const int i, const int j);
     C operator()(const int k) const;

@@ -33,6 +33,12 @@ int main()
     (complex<double>{2, 1} * mat).print();
     (mat * mat1).print();
     cout << "3 * mat = " << endl;
-    (3*mat).print();
+    (3 * mat).print();
+    cout << mat.getM() << " " << mat.getN() << endl;
+    for (int i = 0; i <= 3; ++i)
+    {
+        cout << mat.getvC()[i] << "  " << endl;
+    }
+    mat.print();
     return 0;
 }
