@@ -1,7 +1,7 @@
 #include "newcmatrix.h"
 #include <iostream>
-#include <iomanip>
-#include <algorithm>
+//#include <iomanip>
+//#include <algorithm>
 
 using namespace std;
 
@@ -165,6 +165,19 @@ newcMatrix operator*(const newcMatrix &A, const newcMatrix &B)
     }
     return cC;
 }
+
+/*C p2r(double amplitude, double theta)
+{
+	C result(amplitude * cos(theta), amplitude * sin(theta));
+	return result;
+}*/
+
+C newpp2r(double amplitude, double theta, double power)
+{
+		double amp = pow(amplitude, power);
+		double arg = theta * power;
+		return polar(amp, arg);
+}
 /*
 cMatrix combine(cMatrix A, cMatrix B)
 {
@@ -189,12 +202,12 @@ cMatrix cIdentity(int order)
     }
     return A;
 }
-
-cMatrix cplex(Matrix A)
+*/
+newcMatrix newcplex(Matrix A)
 {
     int m = A.getM();
     int n = A.getN();
-    cMatrix result(m, n);
+    newcMatrix result(m, n);
     for (int i = 1; i <= m; i++)
     {
         for (int j = 1; j <= n; j++)
@@ -204,7 +217,7 @@ cMatrix cplex(Matrix A)
     }
     return result;
 }
-
+/*
 double vNorm2(cMatrix x)
 {
     double result = 0;
@@ -373,13 +386,13 @@ Matrix nidft(cMatrix X) // naive inverse discrete fourier transform
     cMatrix xoN = (1.0 / N) * x;
     return real(xoN);
 }
-
-cMatrix fdft(Matrix x) // fast discrete fourier transform, N = 2^n
+*/
+newcMatrix newfdft(Matrix x) // fast discrete fourier transform, N = 2^n
 {
     int N = x.getM();
     if (N == 1) // base case
     {
-        return cplex(x);
+        return newcplex(x);
     }
     else
     {
@@ -392,16 +405,16 @@ cMatrix fdft(Matrix x) // fast discrete fourier transform, N = 2^n
             x2(i) = x(2 * i);
         }
 
-        cMatrix X1 = fdft(x1); // step 2 recursive calls
-        cMatrix X2 = fdft(x2);
+        newcMatrix X1 = newfdft(x1); // step 2 recursive calls
+        newcMatrix X2 = newfdft(x2);
 
-        cMatrix X(N, 1); // step 3 combine
+        newcMatrix X(N, 1); // step 3 combine
         const double pi = M_PI;
         double ampWN = 1;
         double argWN = -2 * pi / N;
         for (int j = 0; j <= m - 1; j++)
         {
-            C WNj = pp2r(ampWN, argWN, j);
+            C WNj = newpp2r(ampWN, argWN, j);
             X(j + 1) = X1(j + 1) + WNj * X2(j + 1);		// these formulas are the heart of fft!
             X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
         }
@@ -409,7 +422,7 @@ cMatrix fdft(Matrix x) // fast discrete fourier transform, N = 2^n
         return X;
     }
 }
-
+/*
 cMatrix fidftHelp(cMatrix x) // helper fast inverse discrete fourier transform, N = 2^n
 {
     int N = x.getM();

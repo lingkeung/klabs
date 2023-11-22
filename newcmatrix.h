@@ -1,9 +1,9 @@
 #ifndef NEWCMATRIX_H
 #define NEWCMATRIX_H
 
-// #include "matrix.h"
 #include <vector>
 #include <complex>
+#include "matrix.h"
 
 using namespace std;
 
@@ -12,7 +12,7 @@ typedef complex<double> C;
 class newcMatrix
 {
 public:
-    vector<complex<double>> vC;
+    vector<C> vC;
     int m, n;
 
 public:
@@ -37,22 +37,25 @@ public:
     friend newcMatrix operator*(const double &scalar, const newcMatrix &A);
     friend newcMatrix operator*(const newcMatrix &A, const newcMatrix &B);
 };
-/*
-cMatrix cIdentity(int order);
-cMatrix cplex(Matrix A);
-double vNorm2(cMatrix x);
-void vNormal(cMatrix &v);
-double vNormInf(cMatrix x);
-double normInf(cMatrix A);
-void vSort(cMatrix &v);
-cMatrix distinct(cMatrix v);
-cMatrix combine(cMatrix A, cMatrix B);
-Matrix real(cMatrix A);
-bool isReal(cMatrix A);
-cMatrix ndft(Matrix x); // naive discrete fourier transform
-Matrix nidft(cMatrix X); // naive inverse discrete fourier transform
-cMatrix fdft(Matrix x); // fast discrete fourier transform (radix-2)
-cMatrix fidftHelp(cMatrix x); // helper fast discrete fourier transform, N = 2^n
-Matrix fidft(cMatrix X);  */
+
+//C p2r(double amplitude, double theta);
+C newpp2r(double amplitude, double theta, double power);
+
+//cMatrix cIdentity(int order);
+newcMatrix newcplex(Matrix A);
+//double vNorm2(cMatrix x);
+//void vNormal(cMatrix &v);
+//double vNormInf(cMatrix x);
+//double normInf(cMatrix A);
+//void vSort(cMatrix &v);
+//cMatrix distinct(cMatrix v);
+//cMatrix combine(cMatrix A, cMatrix B);
+//Matrix real(cMatrix A);
+//bool isReal(cMatrix A);
+//cMatrix ndft(Matrix x); // naive discrete fourier transform
+//Matrix nidft(cMatrix X); // naive inverse discrete fourier transform
+newcMatrix newfdft(Matrix x); // fast discrete fourier transform (radix-2)
+//cMatrix fidftHelp(cMatrix x); // helper fast discrete fourier transform, N = 2^n
+//Matrix fidft(cMatrix X);  
 
 #endif

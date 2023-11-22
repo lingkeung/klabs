@@ -7,6 +7,7 @@ using namespace std;
 
 int main()
 {
+    
     newcMatrix mat(2, 2);
     mat.print();
     cout << endl;
@@ -41,5 +42,6 @@ int main()
     }
     mat.print();
     mat.hermitian().print();
+    
     return 0;
 }
