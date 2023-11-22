@@ -170,7 +170,7 @@ newcMatrix operator*(const newcMatrix &A, const newcMatrix &B)
 {
 	C result(amplitude * cos(theta), amplitude * sin(theta));
 	return result;
-}*/
+}
 
 C newpp2r(double amplitude, double theta, double power)
 {
@@ -178,7 +178,7 @@ C newpp2r(double amplitude, double theta, double power)
 		double arg = theta * power;
 		return polar(amp, arg);
 }
-/*
+
 cMatrix combine(cMatrix A, cMatrix B)
 {
     int m1 = A.getM();
@@ -414,7 +414,7 @@ newcMatrix newfdft(Matrix x) // fast discrete fourier transform, N = 2^n
         double argWN = -2 * pi / N;
         for (int j = 0; j <= m - 1; j++)
         {
-            C WNj = newpp2r(ampWN, argWN, j);
+            C WNj = pow(polar(ampWN,argWN),j);
             X(j + 1) = X1(j + 1) + WNj * X2(j + 1);		// these formulas are the heart of fft!
             X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
         }

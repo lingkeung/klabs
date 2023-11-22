@@ -39,7 +39,7 @@ public:
 };
 
 //C p2r(double amplitude, double theta);
-C newpp2r(double amplitude, double theta, double power);
+//C newpp2r(double amplitude, double theta, double power);
 
 //cMatrix cIdentity(int order);
 newcMatrix newcplex(Matrix A);
