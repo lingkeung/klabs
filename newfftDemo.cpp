@@ -3,6 +3,9 @@
 #include "TApplication.h"
 #include "rnt.h"
 
+using namespace std;
+using namespace kling;
+
 void StandaloneApplication(int argc, char **argv)
 {
     cout << "Spectrum Analysis Simulation" << endl;
@@ -21,7 +24,7 @@ void StandaloneApplication(int argc, char **argv)
     Random rand;
     Matrix noise = rand.matrix(Ns, 1, 'u', -5, 5); // random noise
     Matrix sPn = signal + noise;
-    newcMatrix dft = (1 / Ns) * newfdft(sPn); // fdft() is a radix-2 fft function
+    cMatrix dft = (1 / Ns) * fdft(sPn); // fdft() is a radix-2 fft function
     int N = Ns / 2 + 1;                 // display valid half of amplitude spectrum only
     Matrix spectrum(N, 1);              // prepare spectrum from dft
     for (int i = 1; i <= N; i++)

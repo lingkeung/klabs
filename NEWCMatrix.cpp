@@ -1,20 +1,22 @@
 #include "newcmatrix.h"
 #include <iostream>
 //#include <iomanip>
-//#include <algorithm>
+#include <algorithm>
+//#include "matrix.h"
 
 using namespace std;
+using namespace kling;
 
 typedef complex<double> C;
 
-newcMatrix::newcMatrix(const int m, const int n) : m{m}, n{n}
+cMatrix::cMatrix(const int m, const int n) : m{m}, n{n}
 {
     if (m <= 0 || n <= 0)
         return;
     vC = vector<C>(m * n, C());
 }
 
-newcMatrix::newcMatrix(const int m, const int n, vector<C> vC)
+cMatrix::cMatrix(const int m, const int n, vector<C> vC)
 {
     if (m * n != vC.size())
         return;
@@ -23,7 +25,7 @@ newcMatrix::newcMatrix(const int m, const int n, vector<C> vC)
     this->vC = vC;
 }
 
-void newcMatrix::print()
+void cMatrix::print()
 {
     for (auto i = 1; i <= m; i++)
     {
@@ -35,9 +37,9 @@ void newcMatrix::print()
     }
 }
 
- newcMatrix newcMatrix::hermitian()
+ cMatrix cMatrix::hermitian()
 {
-    newcMatrix B(this->n, this->m);
+    cMatrix B(this->n, this->m);
     for (int i = 1; i <= this->n; i++)
         for (int j = 1; j <= this->m; j++)
             B(i, j) = conj((*this)(j, i));
@@ -45,33 +47,33 @@ void newcMatrix::print()
 }
 
 
-C newcMatrix::operator()(const int i, const int j) const
+C cMatrix::operator()(const int i, const int j) const
 {
     int k = (i - 1) * n + (j - 1);
     return vC[k];
 }
 
-C &newcMatrix::operator()(const int i, const int j)
+C &cMatrix::operator()(const int i, const int j)
 {
     int k = (i - 1) * n + (j - 1);
     return vC[k];
 }
 
-C newcMatrix::operator()(const int k) const
+C cMatrix::operator()(const int k) const
 {
     return vC[k - 1];
 }
 
-C &newcMatrix::operator()(const int k)
+C &cMatrix::operator()(const int k)
 {
     return vC[k - 1];
 }
 
-newcMatrix newcMatrix::getblk(int i1, int i2, int j1, int j2)
+cMatrix cMatrix::getblk(int i1, int i2, int j1, int j2)
 {
     int m = abs(i2 - i1 + 1);
     int n = abs(j2 - j1 + 1);
-    newcMatrix result(m, n);
+    cMatrix result(m, n);
     if (i1 > i2 || j1 > j2)
     {
         return result;
@@ -86,7 +88,7 @@ newcMatrix newcMatrix::getblk(int i1, int i2, int j1, int j2)
     return result;
 }
 
-void newcMatrix::setblk(int r, int c, newcMatrix A)
+void cMatrix::setblk(int r, int c, cMatrix A)
 {
     if ((m - r + 1 < A.m) || (n - c + 1 < A.n) || r < 1 || c < 1)
     {
@@ -101,14 +103,14 @@ void newcMatrix::setblk(int r, int c, newcMatrix A)
     }
 }
 
-newcMatrix newcMatrix::operator()(int i1, int i2, int j1, int j2)
+cMatrix cMatrix::operator()(int i1, int i2, int j1, int j2)
 {
     return getblk(i1, i2, j1, j2);
 }
 
-newcMatrix operator+(const newcMatrix &A, const newcMatrix &B)
+cMatrix kling::operator+(const cMatrix &A, const cMatrix &B)
 {
-    newcMatrix cC(A.m, A.n);
+    cMatrix cC(A.m, A.n);
     if (A.m != B.m || A.n != B.n)
         return cC;
     for (int i = 1; i <= A.m; i++)
@@ -117,9 +119,9 @@ newcMatrix operator+(const newcMatrix &A, const newcMatrix &B)
     return cC;
 }
 
-newcMatrix operator-(const newcMatrix &A, const newcMatrix &B)
+cMatrix kling::operator-(const cMatrix &A, const cMatrix &B)
 {
-    newcMatrix cC(A.m, A.n);
+    cMatrix cC(A.m, A.n);
     if (A.m != B.m || A.n != B.n)
         return cC;
     for (int i = 1; i <= A.m; i++)
@@ -128,27 +130,27 @@ newcMatrix operator-(const newcMatrix &A, const newcMatrix &B)
     return cC;
 }
 
-newcMatrix operator*(const C &scalar, const newcMatrix &A)
+cMatrix kling::operator*(const C &scalar, const cMatrix &A)
 {
-    newcMatrix B(A.m, A.n);
+    cMatrix B(A.m, A.n);
     for (int i = 1; i <= A.m; i++)
         for (int j = 1; j <= A.n; j++)
             B(i, j) = scalar * A(i, j);
     return B;
 }
 
-newcMatrix operator*(const double &scalar, const newcMatrix &A)
+cMatrix kling::operator*(const double &scalar, const cMatrix &A)
 {
-    newcMatrix B(A.m, A.n);
+    cMatrix B(A.m, A.n);
     for (int i = 1; i <= A.m; i++)
         for (int j = 1; j <= A.n; j++)
             B(i, j) = scalar * A(i, j);
     return B;
 }
 
-newcMatrix operator*(const newcMatrix &A, const newcMatrix &B)
+cMatrix kling::operator*(const cMatrix &A, const cMatrix &B)
 {
-    newcMatrix cC(A.m, B.n);
+    cMatrix cC(A.m, B.n);
     if (A.n != B.m)
         return cC;
     for (int i = 1; i <= A.m; i++)
@@ -178,8 +180,8 @@ C newpp2r(double amplitude, double theta, double power)
 		double arg = theta * power;
 		return polar(amp, arg);
 }
-
-cMatrix combine(cMatrix A, cMatrix B)
+*/
+cMatrix kling::combine(cMatrix A, cMatrix B)
 {
     int m1 = A.getM();
     int n1 = A.getN();
@@ -193,7 +195,7 @@ cMatrix combine(cMatrix A, cMatrix B)
     return C;
 }
 
-cMatrix cIdentity(int order)
+cMatrix kling::cIdentity(int order)
 {
     cMatrix A(order, order);
     for (auto i = 1; i <= order; i++)
@@ -202,12 +204,12 @@ cMatrix cIdentity(int order)
     }
     return A;
 }
-*/
-newcMatrix newcplex(Matrix A)
+
+cMatrix kling::cplex(Matrix A)
 {
     int m = A.getM();
     int n = A.getN();
-    newcMatrix result(m, n);
+    cMatrix result(m, n);
     for (int i = 1; i <= m; i++)
     {
         for (int j = 1; j <= n; j++)
@@ -217,8 +219,8 @@ newcMatrix newcplex(Matrix A)
     }
     return result;
 }
-/*
-double vNorm2(cMatrix x)
+
+double kling::vNorm2(cMatrix x)
 {
     double result = 0;
     int m = x.getM();
@@ -230,17 +232,17 @@ double vNorm2(cMatrix x)
     int size = (m > n) ? m : n;
     for (int i = 1; i <= size; i++)
     {
-        result += x(i).a * x(i).a + x(i).b * x(i).b;
+        result += x(i).real() * x(i).real() + x(i).imag() * x(i).imag();
     }
     return sqrt(result);
 }
 
-void vNormal(cMatrix &v)
+void kling::vNormal(cMatrix &v)
 {
     v = (1.0 / vNorm2(v)) * v;
 }
 
-double vNormInf(cMatrix x)
+double kling::vNormInf(cMatrix x)
 {
     if (x.getM() != 1 && x.getN() != 1)
     {
@@ -258,7 +260,7 @@ double vNormInf(cMatrix x)
     return result;
 }
 
-double normInf(cMatrix A)
+double kling::normInf(cMatrix A)
 {
     double result = 0;
     for (int i = 1; i <= A.getM(); i++)
@@ -274,7 +276,7 @@ double normInf(cMatrix A)
     return result;
 }
 
-void vSort(cMatrix &v)
+void kling::vSort(cMatrix &v)
 {
     int m = v.getM();
     int n = v.getN();
@@ -287,7 +289,7 @@ void vSort(cMatrix &v)
     }
 }
 
-cMatrix distinct(cMatrix v)
+cMatrix kling::distinct(cMatrix v)
 {
     vector<C> vec;
     vSort(v);
@@ -315,7 +317,7 @@ cMatrix distinct(cMatrix v)
         return v;
 }
 
-Matrix real(cMatrix A)
+Matrix kling::real(cMatrix A)
 {
     int m = A.getM();
     int n = A.getN();
@@ -324,20 +326,20 @@ Matrix real(cMatrix A)
     {
         for (int j = 1; j <= n; j++)
         {
-            result(i, j) = A(i, j).a;
+            result(i, j) = A(i, j).real();
         }
     }
     return result;
 }
 
-bool isReal(cMatrix A)
+bool kling::isReal(cMatrix A)
 {
     bool result = true;
     for (int i = 1; i <= A.getM(); i++)
     {
         for (int j = 1; j <= A.getN(); j++)
         {
-            if (!isReal(A(i, j)))
+            if (!(abs(A(i, j).imag()) <= 1e-6) )
             {
                 result = false;
                 return result;
@@ -346,7 +348,7 @@ bool isReal(cMatrix A)
     }
     return result;
 }
-
+/*
 cMatrix ndft(Matrix x) // naive discrete fourier transform
 {
     const double pi = M_PI;
@@ -387,12 +389,12 @@ Matrix nidft(cMatrix X) // naive inverse discrete fourier transform
     return real(xoN);
 }
 */
-newcMatrix newfdft(Matrix x) // fast discrete fourier transform, N = 2^n
+cMatrix kling::fdft(Matrix x) // fast discrete fourier transform, N = 2^n
 {
     int N = x.getM();
     if (N == 1) // base case
     {
-        return newcplex(x);
+        return kling::cplex(x);
     }
     else
     {
@@ -405,10 +407,10 @@ newcMatrix newfdft(Matrix x) // fast discrete fourier transform, N = 2^n
             x2(i) = x(2 * i);
         }
 
-        newcMatrix X1 = newfdft(x1); // step 2 recursive calls
-        newcMatrix X2 = newfdft(x2);
+        cMatrix X1 = fdft(x1); // step 2 recursive calls
+        cMatrix X2 = fdft(x2);
 
-        newcMatrix X(N, 1); // step 3 combine
+        cMatrix X(N, 1); // step 3 combine
         const double pi = M_PI;
         double ampWN = 1;
         double argWN = -2 * pi / N;
@@ -422,8 +424,8 @@ newcMatrix newfdft(Matrix x) // fast discrete fourier transform, N = 2^n
         return X;
     }
 }
-/*
-cMatrix fidftHelp(cMatrix x) // helper fast inverse discrete fourier transform, N = 2^n
+
+cMatrix kling::fidftHelp(cMatrix x) // helper fast inverse discrete fourier transform, N = 2^n
 {
     int N = x.getM();
     if (N == 1) // base case
@@ -450,7 +452,8 @@ cMatrix fidftHelp(cMatrix x) // helper fast inverse discrete fourier transform, 
         double argWN = 2 * pi / N;
         for (int j = 0; j <= m - 1; j++)
         {
-            C WNj = pp2r(ampWN, argWN, j);
+            //C WNj = pp2r(ampWN, argWN, j);
+            C WNj = pow(polar(ampWN,argWN),j);
             X(j + 1) = X1(j + 1) + WNj * X2(j + 1);		// these formulas are the heart of fft!
             X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
         }
@@ -459,9 +462,9 @@ cMatrix fidftHelp(cMatrix x) // helper fast inverse discrete fourier transform, 
     }
 }
 
-Matrix fidft(cMatrix X)// fast inverse discrete fourier transform
+Matrix kling::fidft(cMatrix X)// fast inverse discrete fourier transform
 {
     int N = X.getM();
     return real((1.0 / N) * fidftHelp(X));
 }
- */
+ 

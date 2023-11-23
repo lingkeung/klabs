@@ -4,21 +4,22 @@
 #include "newcmatrix.h"
 
 using namespace std;
+using namespace kling;
 
 int main()
 {
-    
-    newcMatrix mat(2, 2);
+
+    cMatrix mat(2, 2);
     mat.print();
     cout << endl;
-    newcMatrix mat1(2, 2, vector<complex<double>>{{1, 2.001}, {3, 4.53}, {3, 5}, {5, 7}});
+    cMatrix mat1(2, 2, vector<complex<double>>{{1, 2.001}, {3, 4.53}, {3, 5}, {5, 7}});
     mat1.print();
     cout << endl;
     mat1(1, 1) = complex<double>{2, 3};
     cout << "mat1 = " << endl;
     mat1.print();
     cout << endl;
-    newcMatrix v(3, 1, vector<complex<double>>{{1, 2}, {3, 4}, {5, 6}});
+    cMatrix v(3, 1, vector<complex<double>>{{1, 2}, {3, 4}, {5, 6}});
     cout << v(2) << endl;
     v(1) = complex<double>{9, 9};
     v.print();
@@ -42,6 +43,15 @@ int main()
     }
     mat.print();
     mat.hermitian().print();
-    
+    cIdentity(4).print();
+    mat.print();
+    cout << vNorm2(mat(1,1,1,2)) << endl;
+    cMatrix result = mat(1,1,1,2);
+    vNormal(result);
+    result.print();
+    cout<<vNormInf(result)<<endl;
+    vSort(result);
+    result.print();
+
     return 0;
 }
