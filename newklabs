@@ -1,0 +1,2 @@
+#! /usr/bin/bash
+echo $"Matrix.cpp Qr.cpp  Plu.cpp QRC.cpp Leqs.cpp Svd.cpp SVDC.cpp NEWCMatrix.cpp NEWCPlu.cpp NEWEig.cpp NEWEigen.cpp"

@@ -1,7 +1,5 @@
-#include "cplu.h"
-#include <cmath>
+#include "newcplu.h"
 #include <iostream>
-
 using namespace std;
 
 cMatrix fsub(cMatrix L, cMatrix b)
@@ -36,12 +34,6 @@ void rexch(int i, int j, cMatrix &A)
 	A.setblk(j, 1, temp);
 }
 
-/*double abs(C cn) {
-	double a = cn.a;
-	double b = cn.b;
-	double r = sqrt(a*a + b*b);
-	return r;
-}*/
 
 bool cPlu(cMatrix A, cMatrix &P, cMatrix &L, cMatrix &U, C &det)
 {
@@ -131,7 +123,7 @@ C det(cMatrix A)
 	else
 	{
 		cout << "Matrix may be singular !" << endl;
-		return C(0, 0);
+		return C(0.0, 0.0);
 	}
 }
 
@@ -158,6 +150,7 @@ cMatrix cInverse(cMatrix A)
 
 cMatrix cNull(cMatrix A)
 {
+	//cout << "cNull invoked" << endl; // debug
 	int m = A.getM(), n = A.getN();
 	int size = (m <= n) ? m : n;
 	int p = 0;
@@ -179,12 +172,12 @@ cMatrix cNull(cMatrix A)
 
 		if (abs(A(k, k)) >= 1e-6)
 		{
-			A.setblk(k + 1, k, (C(1, 0) / A(k, k)) * A(k + 1, n, k, k));
+			A.setblk(k + 1, k, (C(1.0, 0) / A(k, k)) * A(k + 1, n, k, k));
 			A.setblk(k + 1, k + 1, A(k + 1, n, k + 1, n) - A(k + 1, n, k, k) * A(k, k, k + 1, n));
 		}
 		for (int i = k + 1; i <= m; i++)
 		{
-			A(i, k) = C(0, 0);
+			A(i, k) = C(0.0, 0.0);
 		}
 	}
 	int rank = 0;
@@ -218,12 +211,13 @@ cMatrix cNull(cMatrix A)
 	vector<C> vC;
 	vector<cMatrix> vb;
 	cMatrix soln(n, size - rank);
+	//soln.print();  // debug
 	int k = 1;
 	for (int i = 1; i <= size; i++)
 	{
 		if (u(i) == 0)
 		{
-			soln(i, k) = C(1, 0);
+			soln(i, k) = C(1.0, 0.0);
 			k++;
 			for (int idx = 0; idx < eqN.size(); idx++)
 			{
@@ -240,6 +234,7 @@ cMatrix cNull(cMatrix A)
 		{
 			soln(eqN[j], i + 1) = bsub(U, vb[i])(j + 1);
 		}
+		//soln.print(); // debug
 	}
 	return soln;
 }

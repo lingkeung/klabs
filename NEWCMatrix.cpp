@@ -1,8 +1,8 @@
 #include "newcmatrix.h"
 #include <iostream>
-//#include <iomanip>
+#include <iomanip>
 #include <algorithm>
-//#include "matrix.h"
+// #include "matrix.h"
 
 using namespace std;
 using namespace kling;
@@ -27,17 +27,20 @@ cMatrix::cMatrix(const int m, const int n, vector<C> vC)
 
 void cMatrix::print()
 {
+
     for (auto i = 1; i <= m; i++)
     {
+
         for (auto j = 1; j <= n; j++)
         {
+            cout << setw(15);
             cout << (*this)(i, j);
         }
         cout << endl;
     }
 }
 
- cMatrix cMatrix::hermitian()
+cMatrix cMatrix::hermitian()
 {
     cMatrix B(this->n, this->m);
     for (int i = 1; i <= this->n; i++)
@@ -45,7 +48,6 @@ void cMatrix::print()
             B(i, j) = conj((*this)(j, i));
     return B;
 }
-
 
 C cMatrix::operator()(const int i, const int j) const
 {
@@ -170,15 +172,15 @@ cMatrix kling::operator*(const cMatrix &A, const cMatrix &B)
 
 /*C p2r(double amplitude, double theta)
 {
-	C result(amplitude * cos(theta), amplitude * sin(theta));
-	return result;
+    C result(amplitude * cos(theta), amplitude * sin(theta));
+    return result;
 }
 
 C newpp2r(double amplitude, double theta, double power)
 {
-		double amp = pow(amplitude, power);
-		double arg = theta * power;
-		return polar(amp, arg);
+        double amp = pow(amplitude, power);
+        double arg = theta * power;
+        return polar(amp, arg);
 }
 */
 cMatrix kling::combine(cMatrix A, cMatrix B)
@@ -339,7 +341,7 @@ bool kling::isReal(cMatrix A)
     {
         for (int j = 1; j <= A.getN(); j++)
         {
-            if (!(abs(A(i, j).imag()) <= 1e-6) )
+            if (!(abs(A(i, j).imag()) <= 1e-6))
             {
                 result = false;
                 return result;
@@ -416,8 +418,8 @@ cMatrix kling::fdft(Matrix x) // fast discrete fourier transform, N = 2^n
         double argWN = -2 * pi / N;
         for (int j = 0; j <= m - 1; j++)
         {
-            C WNj = pow(polar(ampWN,argWN),j);
-            X(j + 1) = X1(j + 1) + WNj * X2(j + 1);		// these formulas are the heart of fft!
+            C WNj = pow(polar(ampWN, argWN), j);
+            X(j + 1) = X1(j + 1) + WNj * X2(j + 1);     // these formulas are the heart of fft!
             X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
         }
         // X.print();
@@ -452,9 +454,9 @@ cMatrix kling::fidftHelp(cMatrix x) // helper fast inverse discrete fourier tran
         double argWN = 2 * pi / N;
         for (int j = 0; j <= m - 1; j++)
         {
-            //C WNj = pp2r(ampWN, argWN, j);
-            C WNj = pow(polar(ampWN,argWN),j);
-            X(j + 1) = X1(j + 1) + WNj * X2(j + 1);		// these formulas are the heart of fft!
+            // C WNj = pp2r(ampWN, argWN, j);
+            C WNj = pow(polar(ampWN, argWN), j);
+            X(j + 1) = X1(j + 1) + WNj * X2(j + 1);     // these formulas are the heart of fft!
             X(j + 1 + m) = X1(j + 1) - WNj * X2(j + 1); // this is Cooley and Tukey's contribution.
         }
         // X.print();
@@ -462,9 +464,8 @@ cMatrix kling::fidftHelp(cMatrix x) // helper fast inverse discrete fourier tran
     }
 }
 
-Matrix kling::fidft(cMatrix X)// fast inverse discrete fourier transform
+Matrix kling::fidft(cMatrix X) // fast inverse discrete fourier transform
 {
     int N = X.getM();
     return real((1.0 / N) * fidftHelp(X));
 }
- 
