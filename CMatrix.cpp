@@ -26,7 +26,7 @@ cMatrix::cMatrix(const int m, const int n, vector<C> vC)
 
 void cMatrix::print()
 {
-
+    cout << fixed << setprecision(2);
     for (auto i = 1; i <= m; i++)
     {
 

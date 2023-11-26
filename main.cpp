@@ -12,8 +12,8 @@ int main()
     //  Matrix A(3, 3, {3.0, -1, 0.00000, -1, 3, -1, 0.00000, -1, 3.0});
     //   Matrix A(3, 3, {0, -2, 2, -2, -3, 4, 2, 4, -3});
     //  Matrix A(3, 3, {2, 2, 0, 2, 1, 2, 0, 2, 0});
-    //   Matrix A(3, 3, vector<double>{1, 2, 3, 5, 3, 7, 3, 8, 5});
-    Matrix A(3, 3, vector<double>{4.0 / 5, -3.0 / 5, 0, 3.0 / 5, 4.0 / 5, 0, 1, 2, 2});
+    Matrix A(3, 3, vector<double>{1, 2, 3, 5, 3, 7, 3, 8, 5});
+    // Matrix A(3, 3, vector<double>{4.0 / 5, -3.0 / 5, 0, 3.0 / 5, 4.0 / 5, 0, 1, 2, 2});
     Eigen a(A);
     if (a.getEigIsReal())
     {
@@ -32,8 +32,10 @@ int main()
         auto Sinv = a.getSinv();
 
         (S * Lamda * Sinv).print();
-        real(S*Lamda*Sinv).print();
+        (S * Lamda * Sinv).print();
     }
+    a.getS().print();
+    a.getrS().print();
 
     // Matrix A(3,3,{0,-1,1,-1,0,1,1,1,0});
     /*

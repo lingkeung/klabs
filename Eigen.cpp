@@ -50,6 +50,8 @@ Eigen::Eigen(Matrix B, double tol, int iter)
 		}
 
 		rLamda = real(getLamda());
+		S = cplex(rS);
+		Sinv = cplex(rSinv);
 	}
 }
 
