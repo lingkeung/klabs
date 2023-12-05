@@ -12,7 +12,7 @@ Matrix::Matrix(const int m, const int n) : m(m), n(n)
 
 Matrix::Matrix(const int m, const int n, vector<double> vdbl)
 {
-	if (m * n == vdbl.size())
+	if (m * n == int(vdbl.size()))
 	{
 		this->m = m;
 		this->n = n;

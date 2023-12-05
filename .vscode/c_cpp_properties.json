@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/keung/root_install/include"
+                "/home/keung/root_install/include",
+                "/home/keung/fltk/install/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",

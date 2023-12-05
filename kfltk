@@ -1,0 +1,2 @@
+#! /usr/bin/bash
+echo $"-I/home/keung/fltk/install/include -L/home/keung/fltk/install/lib -lfltk -lm -lX11 -lXext -lpthread -lXinerama -lXfixes -lXcursor -lXft -lXrender -lm -lfontconfig -ldl"

@@ -1,35 +1,17 @@
+#include <chrono>
+#include <string>
 #include <iostream>
-#include <complex>
-#include <vector>
-#include "newcmatrix.h"
-#include "newcplu.h"
-#include "neweig.h"
-#include "neweigen.h"
+#include <iomanip>
 
 using namespace std;
-using namespace kling;
-
-typedef complex<double> C;
+using namespace std::chrono;
 
 int main()
 {
-    Matrix A(3, 3, vector<double>{1, 2, 3, 5, 3, 7, 3, 8, 5});
-    Eigen a(A);
-    if (a.getEigIsReal())
-    {
-        auto rLamda = a.getrLamda();
-        auto rS = a.getrS();
-        auto rSinv = a.getrSinv();
-
-        (rS * rLamda * rSinv).print();
-    }
-    else
-    {
-        auto Lamda = a.getLamda();
-        auto S = a.getS();
-        auto Sinv = a.getSinv();
-
-        (S * Lamda * Sinv).print();
-    }
+    duration<double> d{};
+    cout << d.count() << endl;
+    duration<int, milli> d1{1000};
+    cout << fixed<<setprecision(10);
+    cout << d1.count() << endl;
     return 0;
 }
